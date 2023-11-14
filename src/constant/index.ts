@@ -1,3 +1,8 @@
+import { TNavbars } from "../types/models";
+import {} from "@mui/icons-material";
+import { icons } from "./icons";
+import { colors } from "@mui/material";
+
 export const appConfig = {
    BASE_URL: import.meta.env.VITE_BASE_URL,
    BASE_ASSET_URL: import.meta.env.VITE_BASE_URL + "/public",
@@ -11,3 +16,28 @@ export const appRouterPath = {
    resumes: "/resume",
    notfound: "*",
 };
+
+export const appNavbar: TNavbars = [
+   {
+      text: "Companies",
+      Icon: icons.MuiCompanyIcon,
+      path: appRouterPath.companies,
+   },
+   {
+      text: "Jobs",
+      Icon: icons.MuiJobIcon,
+      path: appRouterPath.jobs,
+   },
+   {
+      text: "Profile",
+      Icon: icons.MuiProfileIcon,
+      path: appRouterPath.profile,
+   },
+   {
+      text: "Resume",
+      Icon: icons.MuiReseumeIcon,
+      path: appRouterPath.resumes,
+   },
+];
+
+export const APP_THEME_COLOR = colors.grey;

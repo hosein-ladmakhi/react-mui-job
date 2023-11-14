@@ -1,12 +1,16 @@
+import "./index.css";
+
 import { FC } from "react";
 import { RouterProvider } from "react-router-dom";
 import { appRouter } from "../routes";
-import { ReactQueryProvider } from "../providers";
+import { MuiThemeProvider, ReactQueryProvider } from "../providers";
 
 const Root: FC = () => {
    return (
       <ReactQueryProvider>
-         <RouterProvider router={appRouter} />
+         <MuiThemeProvider>
+            <RouterProvider router={appRouter} />
+         </MuiThemeProvider>
       </ReactQueryProvider>
    );
 };

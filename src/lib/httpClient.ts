@@ -4,7 +4,7 @@ import { appConfig } from "../constant";
 const TOKEN = window.localStorage.getItem(appConfig.TOKEN);
 
 export const httpClient = axios.create({
-   baseURL: appConfig.BASE_URL,
+   baseURL: appConfig.BASE_URL + "/api",
 });
 
 httpClient.interceptors.request.use((config) => {
