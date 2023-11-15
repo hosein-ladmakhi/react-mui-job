@@ -6,6 +6,10 @@ import {
    ArrowLeft,
    Visibility,
    Menu,
+   Close,
+   Link,
+   LinkedIn,
+   Person3,
 } from "@mui/icons-material";
 
 export const icons = {
@@ -16,4 +20,8 @@ export const icons = {
    MuiBackIcon: ArrowLeft,
    MuiEyeIcon: Visibility,
    MuiMenuIcon: Menu,
+   MuiCloseIcon: Close,
+   MuiLinkIcon: Link,
+   MuiLinkedinIcon: LinkedIn,
+   MuiEmployeeIcon: Person3,
 };

@@ -16,16 +16,20 @@ const IMAGE_URL =
    "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_FMjpg_UX1000_.jpg";
 
 interface IDrawerProps {
-   isOpen?: boolean;
-   onCloseDrawer?: () => void;
    isDesktop?: boolean;
+   isOpenDrawer?: boolean;
+   onCloseDrawer?: () => void;
 }
 
-const Drawer: FC<IDrawerProps> = ({ isOpen, onCloseDrawer, isDesktop }) => {
+const Drawer: FC<IDrawerProps> = ({
+   isDesktop,
+   onCloseDrawer,
+   isOpenDrawer,
+}) => {
    return (
       <MuiDrawer
          anchor="left"
-         open={isOpen}
+         open={isOpenDrawer}
          onClose={onCloseDrawer}
          variant={isDesktop ? "permanent" : "temporary"}
       >
@@ -55,7 +59,7 @@ const Drawer: FC<IDrawerProps> = ({ isOpen, onCloseDrawer, isDesktop }) => {
 };
 
 Drawer.defaultProps = {
-   isOpen: true,
+   isOpenDrawer: true,
    onCloseDrawer: () => {},
 };
 

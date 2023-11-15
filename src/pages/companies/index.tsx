@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { useCompany } from "../../hooks";
 import { Grid } from "@mui/material";
 import CompanyListItem from "../../components/companies/CompanyListItem";
+import CompanyDetailModal from "../../components/companies/CompanyDetailModal";
 
 const CompaniesPage: FC = () => {
    const { data } = useCompany();
@@ -12,6 +13,7 @@ const CompaniesPage: FC = () => {
                data?.map((company) => <CompanyListItem company={company} />)
             )}
          </Grid>
+         <CompanyDetailModal />
       </div>
    );
 };

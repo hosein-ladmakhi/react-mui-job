@@ -1,4 +1,4 @@
-import { FC, Suspense, useState } from "react";
+import { FC, Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
    Box,
@@ -11,25 +11,38 @@ import { icons } from "../constant/icons";
 import { FlexBox } from "../common/kit";
 import { findCurrentPageText } from "../utils";
 import { APP_THEME_COLOR } from "../constant";
-import { Drawer } from "../common/components";
+import { ToggleDrawerIcon } from "../common/components";
 import { useViewport } from "../hooks";
 
 const MainLayout: FC = () => {
+   const [appDrawer, setAppDrawer] = useState<any>();
    const navigate = useNavigate();
-   const [isOpenInMobile, setOpenInMobile] = useState<boolean>(false);
-   const { isDesktop } = useViewport();
    const { pathname } = useLocation();
+   const { isDesktop } = useViewport();
+
+   useEffect(() => {
+      const loadDrawer = async () => {
+         if (isDesktop) {
+            const { default: Drawer } = await import(
+               "../common/components/Drawer"
+            );
+            setAppDrawer(<Drawer isDesktop />);
+         } else {
+            const { default: MobileDrawer } = await import(
+               "../common/components/MobileDrawer"
+            );
+            setAppDrawer(<MobileDrawer />);
+         }
+      };
+
+      loadDrawer();
+   }, [isDesktop]);
 
    const handleOnBack = () => navigate(-1);
-   const onCloseDrawerInMobile = () => setOpenInMobile(false);
 
    return (
       <Container>
-         <Drawer
-            isDesktop={isDesktop}
-            onCloseDrawer={onCloseDrawerInMobile}
-            isOpen={isOpenInMobile}
-         />
+         {appDrawer && appDrawer}
          <FlexBox className="header" justify="space-between">
             <FlexBox justify="flex-start">
                <IconButton onClick={handleOnBack}>
@@ -37,13 +50,7 @@ const MainLayout: FC = () => {
                </IconButton>
                <Typography>{findCurrentPageText(pathname)} Page</Typography>
             </FlexBox>
-
-            <IconButton
-               onClick={() => setOpenInMobile(true)}
-               className="menu-icon"
-            >
-               <icons.MuiMenuIcon />
-            </IconButton>
+            {!isDesktop && <ToggleDrawerIcon />}
          </FlexBox>
          <Suspense fallback={<LinearProgress />}>
             <Box p="10px">

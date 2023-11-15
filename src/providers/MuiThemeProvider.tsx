@@ -52,6 +52,9 @@ const theme = createTheme({
       h6: { fontSize: "12px", fontWeight: "bold" },
       body1: { fontSize: "16px" },
       body2: { fontSize: "14px" },
+      caption: {
+         display: "block",
+      },
    },
 });
 

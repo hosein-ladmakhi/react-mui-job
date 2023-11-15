@@ -4,12 +4,19 @@ import { Avatar, FlexBox } from "../../common/kit";
 import { icons } from "../../constant/icons";
 import { TCompany } from "../../types/apis/company";
 import { APP_THEME_COLOR } from "../../constant";
+import { useAppContext } from "../../hooks";
+import { COMPANY_DETAIL_SUBJECT } from "../../constant/modalSubjects";
 
 interface ICompanyListItemProps {
    company: TCompany;
 }
 
 const CompanyListItem: FC<ICompanyListItemProps> = ({ company }) => {
+   const { handleOpenModal } = useAppContext();
+   const onOpenDetail = () => {
+      handleOpenModal(company, COMPANY_DETAIL_SUBJECT);
+   };
+
    return (
       <Container item xs={12} sm={6} md={4}>
          <Card className="card">
@@ -25,7 +32,7 @@ const CompanyListItem: FC<ICompanyListItemProps> = ({ company }) => {
                      {company.websiteURL}
                   </Typography>
                </div>
-               <IconButton>
+               <IconButton onClick={onOpenDetail}>
                   <icons.MuiEyeIcon />
                </IconButton>
             </FlexBox>
