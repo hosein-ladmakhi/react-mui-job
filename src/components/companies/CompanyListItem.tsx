@@ -6,6 +6,7 @@ import { TCompany } from "../../types/apis/company";
 import { APP_THEME_COLOR } from "../../constant";
 import { useAppContext } from "../../hooks";
 import { COMPANY_DETAIL_SUBJECT } from "../../constant/modalSubjects";
+import { makeStyles } from "tss-react/mui";
 
 interface ICompanyListItemProps {
    company: TCompany;
@@ -13,15 +14,16 @@ interface ICompanyListItemProps {
 
 const CompanyListItem: FC<ICompanyListItemProps> = ({ company }) => {
    const { handleOpenModal } = useAppContext();
+   const { classes } = useStyles();
    const onOpenDetail = () => {
       handleOpenModal(company, COMPANY_DETAIL_SUBJECT);
    };
 
    return (
-      <Container item xs={12} sm={6} md={4}>
-         <Card className="card">
+      <Grid item xs={12} sm={6} md={4}>
+         <Card className={classes.card}>
             <Avatar height="70px" width="70px" apiSrc={company.logo} />
-            <FlexBox className="content" justify="space-between">
+            <FlexBox className={classes.content} justify="space-between">
                <div>
                   <Typography variant="h4">{company.name}</Typography>
                   <Typography
@@ -37,18 +39,18 @@ const CompanyListItem: FC<ICompanyListItemProps> = ({ company }) => {
                </IconButton>
             </FlexBox>
          </Card>
-      </Container>
+      </Grid>
    );
 };
 
 export default CompanyListItem;
 
-const Container = styled(Grid)(() => ({
-   ".content": {
+const useStyles = makeStyles()(() => ({
+   content: {
       marginLeft: "10px",
       width: "100%",
    },
-   ".card": {
+   card: {
       justifyContent: "flex-start",
       alignItems: "center",
       display: "flex",

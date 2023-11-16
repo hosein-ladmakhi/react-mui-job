@@ -4,6 +4,7 @@ import { useAppContext } from "../../hooks";
 import { icons } from "../../constant/icons";
 import { APP_THEME_COLOR } from "../../constant";
 import { preventParentEvent } from "../../utils";
+import { makeStyles } from "tss-react/mui";
 
 interface IModalProps extends PropsWithChildren {
    subject?: string;
@@ -11,25 +12,28 @@ interface IModalProps extends PropsWithChildren {
 }
 
 const Modal: FC<IModalProps> = ({ subject, size, children }) => {
+   const { classes, cx } = useStyles();
    const { handleModalStatus, modalSubject, isOpenModal } = useAppContext();
    const handleOnClose = () => handleModalStatus(false);
 
    const isVisible = !!isOpenModal && modalSubject === subject;
-   const cardClass = `card card-${size}`;
+   const cardClass = size
+      ? cx(classes.card, classes?.[`card-${size}`])
+      : classes.card;
 
    return (
-      <Container open={isVisible} onClose={handleOnClose}>
-         <div className="content" onClick={handleOnClose}>
+      <MuiModal open={isVisible} onClose={handleOnClose}>
+         <div className={classes.content} onClick={handleOnClose}>
             <div className={cardClass} onClick={preventParentEvent}>
-               <div className="close-icon">
+               <div className={classes.closeIcon}>
                   <IconButton onClick={handleOnClose}>
-                     <icons.MuiCloseIcon className="icon" />
+                     <icons.MuiCloseIcon className={classes.icon} />
                   </IconButton>
                </div>
                {children}
             </div>
          </div>
-      </Container>
+      </MuiModal>
    );
 };
 
@@ -37,26 +41,26 @@ Modal.defaultProps = {
    size: "md",
 };
 
-const Container = styled(MuiModal)(({ theme }) => ({
-   ".content": {
+export default Modal;
+
+const useStyles = makeStyles()((theme) => ({
+   content: {
       height: "100%",
       width: "100%",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
    },
-
-   ".close-icon": {
-      position: "absolute",
-      top: "2px",
-      right: "2px",
+   "card-sm": {
+      width: "400px",
    },
-
-   ".icon": {
-      fill: APP_THEME_COLOR[200],
+   "card-md": {
+      width: "600px",
    },
-
-   ".card": {
+   "card-lg": {
+      width: "800px",
+   },
+   card: {
       padding: "30px",
       backgroundColor: APP_THEME_COLOR[900],
       color: theme.palette.common.white,
@@ -64,16 +68,6 @@ const Container = styled(MuiModal)(({ theme }) => ({
       borderRadius: "5px",
       overflow: "hidden",
       wordBreak: "break-word",
-      "&-sm": {
-         width: "400px",
-      },
-      "&-md": {
-         width: "600px",
-      },
-      "&-lg": {
-         width: "800px",
-      },
-
       [theme.breakpoints.down("md")]: {
          maxWidth: "450px",
       },
@@ -81,6 +75,12 @@ const Container = styled(MuiModal)(({ theme }) => ({
          maxWidth: "350px",
       },
    },
+   icon: {
+      fill: APP_THEME_COLOR[200],
+   },
+   closeIcon: {
+      position: "absolute",
+      top: "2px",
+      right: "2px",
+   },
 }));
-
-export default Modal;

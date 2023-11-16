@@ -10,6 +10,11 @@ import {
    Link,
    LinkedIn,
    Person3,
+   ExpandLess,
+   ExpandMore,
+   AttachMoney,
+   Public,
+   BarChart,
 } from "@mui/icons-material";
 
 export const icons = {
@@ -24,4 +29,9 @@ export const icons = {
    MuiLinkIcon: Link,
    MuiLinkedinIcon: LinkedIn,
    MuiEmployeeIcon: Person3,
+   MuiExpandLess: ExpandLess,
+   MuiExpandMore: ExpandMore,
+   MuiAttachMoneyIcon: AttachMoney,
+   MuiGlobeIcon: Public,
+   MuiChartIcon: BarChart,
 };

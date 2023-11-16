@@ -10,6 +10,25 @@ const theme = createTheme({
       mode: "dark",
    },
    components: {
+      MuiButton: {
+         styleOverrides: {
+            contained: {
+               textTransform: "capitalize",
+            },
+            containedPrimary: {
+               background: APP_THEME_COLOR[800],
+               color: APP_THEME_COLOR[100],
+            },
+         },
+      },
+      MuiCollapse: {
+         styleOverrides: {
+            root: {
+               background: APP_THEME_COLOR[900],
+               borderRadius: "5px",
+            },
+         },
+      },
       MuiAvatar: {
          styleOverrides: {
             img: {
@@ -28,10 +47,14 @@ const theme = createTheme({
       MuiDrawer: {
          styleOverrides: {
             paper: {
-               width: "200px",
                padding: "10px",
                background: APP_THEME_COLOR["900"],
                color: APP_THEME_COLOR["100"],
+               position: "relative",
+               maxWidth: "400px",
+            },
+            root: {
+               height: "100%",
             },
          },
       },
@@ -54,6 +77,7 @@ const theme = createTheme({
       body2: { fontSize: "14px" },
       caption: {
          display: "block",
+         color: APP_THEME_COLOR[400],
       },
    },
 });
