@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileFormValidation } from "../../constant/forms";
+import SeoLayout from "../../layout/SeoLayout";
+import { profilePageSeoMeta } from "../../seo-meta";
 
 const ProfilePage: FC = () => {
    const [avatar, setAvatar] = useState<File>();
@@ -35,91 +37,93 @@ const ProfilePage: FC = () => {
    };
 
    return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-         <Grid container spacing={2}>
-            <Grid item xs={12} lg={12}>
-               {isDesktop ? (
-                  <FileUploader
-                     avatarHeight="120px"
-                     avatarWidth="120px"
-                     file={avatar}
-                     onChangeFile={onChangeAvatar}
-                  />
-               ) : (
-                  <center>
+      <SeoLayout {...profilePageSeoMeta()}>
+         <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={2}>
+               <Grid item xs={12} lg={12}>
+                  {isDesktop ? (
                      <FileUploader
                         avatarHeight="120px"
                         avatarWidth="120px"
                         file={avatar}
                         onChangeFile={onChangeAvatar}
                      />
-                  </center>
-               )}
+                  ) : (
+                     <center>
+                        <FileUploader
+                           avatarHeight="120px"
+                           avatarWidth="120px"
+                           file={avatar}
+                           onChangeFile={onChangeAvatar}
+                        />
+                     </center>
+                  )}
+               </Grid>
+               <Grid item xs={12} lg={6}>
+                  <TextBox
+                     control={control}
+                     name="username"
+                     label="Username"
+                     type="text"
+                  />
+               </Grid>
+               <Grid item xs={12} lg={6}>
+                  <TextBox
+                     control={control}
+                     name="email"
+                     label="Email Address"
+                     type="text"
+                  />
+               </Grid>
+               <Grid item xs={12} lg={6}>
+                  <TextBox
+                     control={control}
+                     name="firstName"
+                     label="First Name"
+                     type="text"
+                  />
+               </Grid>
+               <Grid item xs={12} lg={6}>
+                  <TextBox
+                     control={control}
+                     name="lastName"
+                     label="Last Name"
+                     type="text"
+                  />
+               </Grid>
+               <Grid item xs={12} lg={6}>
+                  <TextBox
+                     name="age"
+                     control={control}
+                     label="Age"
+                     type="number"
+                  />
+               </Grid>
+               <Grid item xs={12} lg={6}>
+                  <TextBox
+                     name="password"
+                     control={control}
+                     label="Password"
+                     type="password"
+                  />
+               </Grid>
+               <Grid item xs={12} lg={12}>
+                  <TextBox
+                     name="bio"
+                     label="Your Bio"
+                     type="textarea"
+                     textRows={10}
+                     control={control}
+                  />
+               </Grid>
+               <Grid item lg={1}>
+                  <Button type="submit" variant="contained" fullWidth>
+                     Save Change
+                  </Button>
+               </Grid>
             </Grid>
-            <Grid item xs={12} lg={6}>
-               <TextBox
-                  control={control}
-                  name="username"
-                  label="Username"
-                  type="text"
-               />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-               <TextBox
-                  control={control}
-                  name="email"
-                  label="Email Address"
-                  type="text"
-               />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-               <TextBox
-                  control={control}
-                  name="firstName"
-                  label="First Name"
-                  type="text"
-               />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-               <TextBox
-                  control={control}
-                  name="lastName"
-                  label="Last Name"
-                  type="text"
-               />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-               <TextBox
-                  name="age"
-                  control={control}
-                  label="Age"
-                  type="number"
-               />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-               <TextBox
-                  name="password"
-                  control={control}
-                  label="Password"
-                  type="password"
-               />
-            </Grid>
-            <Grid item xs={12} lg={12}>
-               <TextBox
-                  name="bio"
-                  label="Your Bio"
-                  type="textarea"
-                  textRows={10}
-                  control={control}
-               />
-            </Grid>
-            <Grid item lg={1}>
-               <Button type="submit" variant="contained" fullWidth>
-                  Save Change
-               </Button>
-            </Grid>
-         </Grid>
-      </form>
+         </form>
+      </SeoLayout>
    );
 };
 

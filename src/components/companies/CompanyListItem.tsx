@@ -1,4 +1,4 @@
-import { Grid, Card, Typography, IconButton, styled } from "@mui/material";
+import { Grid, Card, Typography, IconButton } from "@mui/material";
 import { FC } from "react";
 import { Avatar, FlexBox } from "../../common/kit";
 import { icons } from "../../constant/icons";

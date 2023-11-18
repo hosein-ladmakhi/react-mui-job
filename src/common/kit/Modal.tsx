@@ -1,4 +1,4 @@
-import { IconButton, Modal as MuiModal, styled } from "@mui/material";
+import { IconButton, Modal as MuiModal } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
 import { useAppContext } from "../../hooks";
 import { icons } from "../../constant/icons";

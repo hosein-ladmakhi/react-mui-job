@@ -10,8 +10,12 @@ export const appContext = createContext<TAppContext>({
    handleModalSubject: () => {},
    handleModalStatus: () => {},
    modalContent: {},
-   handleModalContent: (content: TObject) => {},
-   handleOpenModal: (content: TObject, subject: string) => {},
+   handleModalContent: (content: TObject) => {
+      console.log(content);
+   },
+   handleOpenModal: (content: TObject, subject: string) => {
+      console.log(content, subject);
+   },
 });
 
 export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {

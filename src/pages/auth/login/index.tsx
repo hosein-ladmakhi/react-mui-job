@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { APP_THEME_COLOR, appRouterPath } from "../../../constant";
 import { makeStyles } from "tss-react/mui";
+import SeoLayout from "../../../layout/SeoLayout";
+import { loginPageSeoMeta } from "../../../seo-meta";
 
 const LoginPage: FC = () => {
    const { classes } = useStyles();
@@ -30,7 +32,7 @@ const LoginPage: FC = () => {
    };
 
    return (
-      <>
+      <SeoLayout {...loginPageSeoMeta()}>
          <FlexBox>
             <icons.MuiLoginIcon fontSize="large" />
             <Typography ml={1} variant="h2">
@@ -66,7 +68,7 @@ const LoginPage: FC = () => {
                Create new account
             </FlexBox>
          </Link>
-      </>
+      </SeoLayout>
    );
 };
 
