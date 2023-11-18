@@ -14,7 +14,10 @@ export const appRouterPath = {
    jobs: "/jobs",
    profile: "/profile",
    resumes: "/resume",
+   logout: "/logout",
    notfound: "*",
+   login: "/auth/login",
+   signup: "/auth/signup",
 };
 
 export const appNavbar: TNavbars = [
@@ -37,6 +40,11 @@ export const appNavbar: TNavbars = [
       text: "Resume",
       Icon: icons.MuiReseumeIcon,
       path: appRouterPath.resumes,
+   },
+   {
+      text: "Logout",
+      Icon: icons.MuiLogoutIcon,
+      path: appRouterPath.logout,
    },
 ];
 

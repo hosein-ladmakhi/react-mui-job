@@ -23,3 +23,14 @@ export const profileFormValidation = zod.object({
       .min(1, "You must provide your age"),
    bio: zod.string().optional(),
 });
+
+export const loginFormValidation = zod.object({
+   username: zod
+      .string({ required_error: "You must provide your username" })
+      .min(3, "Your username must include 3 character at least"),
+   password: zod
+      .string({ required_error: "You must provide your password" })
+      .min(8, "Your password must include 8 character at least"),
+});
+
+export const signupFormValidation = profileFormValidation;

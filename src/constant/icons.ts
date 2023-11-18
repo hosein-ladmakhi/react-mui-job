@@ -16,6 +16,9 @@ import {
    Public,
    BarChart,
    Create,
+   Logout,
+   LoginOutlined,
+   HowToReg,
 } from "@mui/icons-material";
 
 export const icons = {
@@ -36,4 +39,7 @@ export const icons = {
    MuiGlobeIcon: Public,
    MuiChartIcon: BarChart,
    MuiPenIcon: Create,
+   MuiLogoutIcon: Logout,
+   MuiLoginIcon: LoginOutlined,
+   MuiSignupIcon: HowToReg,
 };
