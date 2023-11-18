@@ -13,7 +13,6 @@ const JobsPage: FC = () => {
             <JobLists />
             <JobCategories />
          </Grid>
-
          <JobModalItem />
       </>
    );

@@ -69,7 +69,9 @@ const useStyles = makeStyles()((theme) => ({
       overflow: "hidden",
       wordBreak: "break-word",
       [theme.breakpoints.down("md")]: {
+         maxHeight: "600px",
          maxWidth: "450px",
+         overflowY: "auto",
       },
       [theme.breakpoints.down("sm")]: {
          maxWidth: "350px",

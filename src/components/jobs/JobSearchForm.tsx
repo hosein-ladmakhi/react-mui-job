@@ -1,8 +1,26 @@
 import { FC } from "react";
 import { Button, Grid } from "@mui/material";
 import { SelectBox, TextBox } from "../../common/kit";
+import { useCategory, useViewport } from "../../hooks";
 
 const JobSearchForm: FC = () => {
+   const { isDesktop } = useViewport();
+   const { data } = useCategory(!isDesktop, true);
+   const printCategoryInput = () => {
+      return (
+         <Grid item xs={12} md={4}>
+            <SelectBox
+               defaultLabelOption="Select Your Job Category"
+               label="Job Category"
+               options={data?.map((category) => ({
+                  text: category.name,
+                  value: category.id,
+               }))}
+            />
+         </Grid>
+      );
+   };
+
    return (
       <form style={{ width: "100%" }}>
          <Grid spacing={2} container>
@@ -36,6 +54,7 @@ const JobSearchForm: FC = () => {
                   ]}
                />
             </Grid>
+            {!isDesktop && printCategoryInput()}
             <Grid alignSelf="end" xs={12} item md={2}>
                <Button size="large" variant="contained" fullWidth>
                   Search Jobs

@@ -18,7 +18,7 @@ const JobCategories: FC = () => {
                itemKey="id"
                itemValue="name"
                itemChildren="childrens"
-               data={[...data, ...data, ...data]}
+               data={data}
             />
          </Box>
       </Grid>

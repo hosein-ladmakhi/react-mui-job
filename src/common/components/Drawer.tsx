@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import {
    Box,
+   IconButton,
    ListItemIcon,
    ListItemText,
    MenuItem,
@@ -11,6 +12,7 @@ import {
 import { appNavbar } from "../../constant";
 import { NavLink } from "react-router-dom";
 import { Avatar } from "../kit";
+import { icons } from "../../constant/icons";
 
 const IMAGE_URL =
    "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_FMjpg_UX1000_.jpg";
@@ -33,6 +35,13 @@ const Drawer: FC<IDrawerProps> = ({
          onClose={onCloseDrawer}
          variant={isDesktop ? "permanent" : "temporary"}
       >
+         {!isDesktop && (
+            <Box>
+               <IconButton onClick={onCloseDrawer}>
+                  <icons.MuiCloseIcon />
+               </IconButton>
+            </Box>
+         )}
          <Box component="center">
             <Avatar src={IMAGE_URL} height="70px" width="70px" />
             <Box mt={1}>
