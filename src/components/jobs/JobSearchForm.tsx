@@ -25,7 +25,7 @@ const JobSearchForm: FC = () => {
       <form style={{ width: "100%" }}>
          <Grid spacing={2} container>
             <Grid item xs={12} md={4}>
-               <TextBox label="Job Title" />
+               <TextBox name="title" label="Job Title" />
             </Grid>
             <Grid item xs={12} md={4}>
                <SelectBox
