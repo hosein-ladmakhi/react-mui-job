@@ -15,6 +15,7 @@ import {
    AttachMoney,
    Public,
    BarChart,
+   Create,
 } from "@mui/icons-material";
 
 export const icons = {
@@ -34,4 +35,5 @@ export const icons = {
    MuiAttachMoneyIcon: AttachMoney,
    MuiGlobeIcon: Public,
    MuiChartIcon: BarChart,
+   MuiPenIcon: Create,
 };

@@ -6,3 +6,4 @@ export { default as TextBox } from "./TextBox";
 export { default as Loading } from "./Loading";
 export { default as NestedList } from "./NestedList";
 export { default as SummaryText } from "./SummaryText";
+export { default as FileUploader } from "./FileUploader";
