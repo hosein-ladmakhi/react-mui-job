@@ -7,15 +7,11 @@ import {
    MenuItem,
    MenuList,
    Drawer as MuiDrawer,
-   Typography,
 } from "@mui/material";
 import { appNavbar } from "../../constant";
 import { NavLink } from "react-router-dom";
-import { Avatar } from "../kit";
+import DrawerUserInfo from "./DrawerUserInfo";
 import { icons } from "../../constant/icons";
-
-const IMAGE_URL =
-   "https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_FMjpg_UX1000_.jpg";
 
 interface IDrawerProps {
    isDesktop?: boolean;
@@ -42,13 +38,7 @@ const Drawer: FC<IDrawerProps> = ({
                </IconButton>
             </Box>
          )}
-         <Box component="center">
-            <Avatar src={IMAGE_URL} height="70px" width="70px" />
-            <Box mt={1}>
-               <Typography variant="h4">Hosein Ladmakhi nejad</Typography>
-               <Typography variant="body2">hosein@ladmakhi.com</Typography>
-            </Box>
-         </Box>
+         <DrawerUserInfo />
          <MenuList sx={{ marginTop: "20px" }} dense>
             {React.Children.toArray(
                appNavbar.map((navbar) => (

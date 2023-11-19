@@ -8,4 +8,4 @@ export const authSignup = (data: TSignup) =>
 export const authSignin = (data: TLogin) =>
    httpClient.post("/auth/login", data) as Promise<TAuthResponse>;
 
-export const getUser = () => httpClient.get("/user") as Promise<TUser>;
+export const getUser = () => httpClient.get("/user/current") as Promise<TUser>;
