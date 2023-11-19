@@ -16,5 +16,5 @@ httpClient.interceptors.request.use((config) => {
 
 httpClient.interceptors.response.use(
    (res) => res.data,
-   (err) => Promise.reject(err)
+   (err) => err.message
 );

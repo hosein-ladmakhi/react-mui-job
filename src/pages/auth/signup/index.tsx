@@ -1,18 +1,23 @@
 import { FC } from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import { FlexBox, TextBox } from "../../../common/kit";
+import { FlexBox, Loading, TextBox } from "../../../common/kit";
 import { useForm } from "react-hook-form";
 import { icons } from "../../../constant/icons";
 import zod from "zod";
 import { signupFormValidation } from "../../../constant/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { APP_THEME_COLOR, appRouterPath } from "../../../constant";
 import { makeStyles } from "tss-react/mui";
 import SeoLayout from "../../../layout/SeoLayout";
 import { signupPageSeoMeta } from "../../../seo-meta";
+import { useSignupAuth, useUserContext } from "../../../hooks";
+import { TSignup } from "../../../types/models";
 
 const SignupPage: FC = () => {
+   const { isLoading, mutateAsync } = useSignupAuth();
+   const { handleOnChangeToken } = useUserContext();
+   const navigate = useNavigate();
    const { classes } = useStyles();
    const { control, handleSubmit } = useForm<
       zod.infer<typeof signupFormValidation>
@@ -31,9 +36,18 @@ const SignupPage: FC = () => {
       resolver: zodResolver(signupFormValidation),
    });
 
-   const onSubmit = () => {
-      console.log("done");
+   const onSubmit = async (data: TSignup) => {
+      const response = await mutateAsync(data);
+      if (response.token) {
+         alert("Signup Successfully");
+         handleOnChangeToken(response.token);
+         navigate("/");
+      } else {
+         alert("Signup failed ...");
+      }
    };
+
+   if (isLoading) return <Loading variant="circle" />;
 
    return (
       <SeoLayout {...signupPageSeoMeta()}>
@@ -43,7 +57,10 @@ const SignupPage: FC = () => {
                Signup Page
             </Typography>
          </FlexBox>
-         <form onSubmit={handleSubmit(onSubmit)} className={classes.rootForm}>
+         <form
+            onSubmit={handleSubmit(onSubmit as any)}
+            className={classes.rootForm}
+         >
             <Stack spacing={2}>
                <TextBox
                   type="text"

@@ -1,18 +1,23 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { FC } from "react";
-import { FlexBox, TextBox } from "../../../common/kit";
+import { FlexBox, Loading, TextBox } from "../../../common/kit";
 import { useForm } from "react-hook-form";
 import { icons } from "../../../constant/icons";
 import zod from "zod";
 import { loginFormValidation } from "../../../constant/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { APP_THEME_COLOR, appRouterPath } from "../../../constant";
 import { makeStyles } from "tss-react/mui";
 import SeoLayout from "../../../layout/SeoLayout";
 import { loginPageSeoMeta } from "../../../seo-meta";
+import { useLoginAuth, useUserContext } from "../../../hooks";
+import { TLogin } from "../../../types/models";
 
 const LoginPage: FC = () => {
+   const { isLoading, mutateAsync } = useLoginAuth();
+   const { handleOnChangeToken } = useUserContext();
+   const navigate = useNavigate();
    const { classes } = useStyles();
    const { control, handleSubmit } = useForm<
       zod.infer<typeof loginFormValidation>
@@ -22,14 +27,23 @@ const LoginPage: FC = () => {
       reValidateMode: "onChange",
       defaultValues: {
          password: "",
-         username: "",
+         email: "",
       },
       resolver: zodResolver(loginFormValidation),
    });
 
-   const onSubmit = () => {
-      console.log("done");
+   const onSubmit = async (data: TLogin) => {
+      const response = await mutateAsync(data);
+      if (response?.token) {
+         alert("Login Successfully ...");
+         handleOnChangeToken(response?.token);
+         navigate("/");
+      } else {
+         alert("Login Failed ...");
+      }
    };
+
+   if (isLoading) return <Loading variant="circle" />;
 
    return (
       <SeoLayout {...loginPageSeoMeta()}>
@@ -39,9 +53,12 @@ const LoginPage: FC = () => {
                Login Page
             </Typography>
          </FlexBox>
-         <form onSubmit={handleSubmit(onSubmit)} className={classes.rootForm}>
+         <form
+            onSubmit={handleSubmit(onSubmit as any)}
+            className={classes.rootForm}
+         >
             <Stack spacing={2}>
-               <TextBox name="username" label="Username" control={control} />
+               <TextBox name="email" label="Email Address" control={control} />
                <TextBox
                   name="password"
                   label="Password"

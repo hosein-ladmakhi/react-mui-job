@@ -25,9 +25,9 @@ export const profileFormValidation = zod.object({
 });
 
 export const loginFormValidation = zod.object({
-   username: zod
-      .string({ required_error: "You must provide your username" })
-      .min(3, "Your username must include 3 character at least"),
+   email: zod
+      .string({ required_error: "You must provide your email address" })
+      .email({ message: "Your email address include invalid format" }),
    password: zod
       .string({ required_error: "You must provide your password" })
       .min(8, "Your password must include 8 character at least"),
