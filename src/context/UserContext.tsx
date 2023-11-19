@@ -15,6 +15,7 @@ export const userContext = createContext<TUserContext>({
    handleOnChangeToken: (token?: string) => {
       console.log("token", token);
    },
+   handleLogout: () => {},
 });
 
 const persistedToken = window.localStorage.getItem(appConfig.TOKEN) || "";
@@ -23,6 +24,7 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
    const [token, setToken] = useState<string>(persistedToken);
    const [user, setUser] = useState<TUser>();
    const navigate = useNavigate();
+
    useEffect(() => {
       (async () => {
          window.localStorage.setItem(appConfig.TOKEN, token);
@@ -37,16 +39,16 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
                   const currentUser = await getUser();
                   setUser(currentUser);
                } else {
-                  handleUnAuthorized();
+                  handleLogout();
                }
             } else {
-               handleUnAuthorized();
+               handleLogout();
             }
          }
       })();
    }, [token]);
 
-   const handleUnAuthorized = () => {
+   const handleLogout = () => {
       setToken("");
       setUser(undefined);
       navigate(appRouterPath.login);
@@ -62,6 +64,7 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
             handleOnChangeToken,
             token,
             user,
+            handleLogout,
          }}
       >
          {children}

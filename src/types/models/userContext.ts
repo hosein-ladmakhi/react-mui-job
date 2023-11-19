@@ -5,4 +5,5 @@ export type TUserContext = {
    token?: string;
    handleOnChangeToken: (token?: string) => void;
    user?: TUser;
+   handleLogout: () => void;
 };
