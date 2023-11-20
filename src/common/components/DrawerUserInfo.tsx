@@ -5,6 +5,7 @@ import { useUserContext } from "../../hooks";
 
 const DrawerUserInfo: FC = () => {
    const { user } = useUserContext();
+   console.log(123465, user);
    return (
       <Box component="center">
          <Avatar apiSrc={user?.logo} height="70px" width="70px" />

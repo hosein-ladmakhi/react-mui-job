@@ -1,18 +1,21 @@
 import { FC, useState } from "react";
 import { FileUploader, TextBox } from "../../common/kit";
 import { Button, Grid } from "@mui/material";
-import { useViewport } from "../../hooks";
+import { useUserContext, useViewport } from "../../hooks";
 import { useForm } from "react-hook-form";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileFormValidation } from "../../constant/forms";
 import SeoLayout from "../../layout/SeoLayout";
 import { profilePageSeoMeta } from "../../seo-meta";
+import { uploadImage } from "../../services/uploader";
+import { TUser } from "../../types/models";
+import { updateUser } from "../../services/auth";
 
 const ProfilePage: FC = () => {
    const [avatar, setAvatar] = useState<File>();
    const { isDesktop } = useViewport();
-
+   const { user, handleChangeUser } = useUserContext();
    const onChangeAvatar = (file?: File) => setAvatar(file);
    const { handleSubmit, control } = useForm<
       zod.infer<typeof profileFormValidation>
@@ -22,23 +25,39 @@ const ProfilePage: FC = () => {
       criteriaMode: "all",
       reValidateMode: "onChange",
       defaultValues: {
-         age: 0,
-         bio: "",
-         email: "",
-         firstName: "",
-         lastName: "",
-         password: "",
-         username: "",
+         age: +user?.age! || 0,
+         bio: user?.bio,
+         email: user?.email,
+         firstName: user?.firstName,
+         lastName: user?.lastName,
+         username: user?.username,
       },
    });
 
-   const onSubmit = (value: any) => {
-      console.log("::::", value);
+   const handleUploadingImage = () => {
+      const uploadImageFormdata = new FormData();
+      uploadImageFormdata.append("image", avatar as File);
+      uploadImageFormdata.append("height", "100");
+      uploadImageFormdata.append("width", "100");
+      return uploadImage(uploadImageFormdata);
+   };
+
+   const onSubmit = async (value: TUser) => {
+      const updatedUserData = { ...value };
+      updatedUserData.logo = avatar ? await handleUploadingImage() : user?.logo;
+      console.log("updated user", updatedUserData);
+      const updatedResult = await updateUser(updatedUserData);
+      if (updatedResult) {
+         handleChangeUser(updatedUserData);
+         alert("Update User Successfully ...");
+      } else {
+         alert("Updating User Info failed ...");
+      }
    };
 
    return (
       <SeoLayout {...profilePageSeoMeta()}>
-         <form onSubmit={handleSubmit(onSubmit)}>
+         <form onSubmit={handleSubmit(onSubmit as any)}>
             <Grid container spacing={2}>
                <Grid item xs={12} lg={12}>
                   {isDesktop ? (
@@ -97,14 +116,6 @@ const ProfilePage: FC = () => {
                      control={control}
                      label="Age"
                      type="number"
-                  />
-               </Grid>
-               <Grid item xs={12} lg={6}>
-                  <TextBox
-                     name="password"
-                     control={control}
-                     label="Password"
-                     type="password"
                   />
                </Grid>
                <Grid item xs={12} lg={12}>

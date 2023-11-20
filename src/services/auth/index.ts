@@ -9,3 +9,6 @@ export const authSignin = (data: TLogin) =>
    httpClient.post("/auth/login", data) as Promise<TAuthResponse>;
 
 export const getUser = () => httpClient.get("/user/current") as Promise<TUser>;
+
+export const updateUser = (data: Partial<TUser>) =>
+   httpClient.patch("/user", data) as Promise<boolean>;

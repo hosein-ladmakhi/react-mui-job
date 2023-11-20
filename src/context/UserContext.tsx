@@ -16,6 +16,7 @@ export const userContext = createContext<TUserContext>({
       console.log("token", token);
    },
    handleLogout: () => {},
+   handleChangeUser: () => {},
 });
 
 const persistedToken = window.localStorage.getItem(appConfig.TOKEN) || "";
@@ -27,8 +28,8 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
    useEffect(() => {
       (async () => {
-         window.localStorage.setItem(appConfig.TOKEN, token);
-         if (token) {
+         try {
+            window.localStorage.setItem(appConfig.TOKEN, token);
             const decodedToken = JSON.parse(
                window.atob(token?.split(".")[1])
             ) as TJwtToken;
@@ -44,6 +45,8 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
             } else {
                handleLogout();
             }
+         } catch (error) {
+            handleLogout();
          }
       })();
    }, [token]);
@@ -58,6 +61,13 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setToken(newToken);
    };
 
+   const handleChangeUser = (updatedUser: Partial<TUser>) => {
+      setUser((prevUser) => {
+         if (!prevUser) return;
+         return { ...prevUser, ...updatedUser } as TUser;
+      });
+   };
+
    return (
       <userContext.Provider
          value={{
@@ -65,6 +75,7 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
             token,
             user,
             handleLogout,
+            handleChangeUser,
          }}
       >
          {children}
