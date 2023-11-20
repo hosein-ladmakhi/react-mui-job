@@ -1,4 +1,11 @@
-import { Grid, Box, Typography, Collapse, IconButton } from "@mui/material";
+import {
+   Grid,
+   Box,
+   Typography,
+   Collapse,
+   IconButton,
+   Button,
+} from "@mui/material";
 import React, { FC, useState } from "react";
 import { APP_THEME_COLOR } from "../../constant";
 import { makeStyles } from "tss-react/mui";
@@ -43,6 +50,10 @@ const AddOrEditResumeItem: FC = () => {
 
    return (
       <Grid item md={9}>
+         <FlexBox justify="space-between" className={classes.root}>
+            <Typography variant="h3">The Resume Name</Typography>
+            <Button variant="contained">Add New Section</Button>
+         </FlexBox>
          {React.Children.toArray(
             sections.map(({ id, section, text }) => (
                <Box className={classes.root}>
