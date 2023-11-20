@@ -1,6 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { AppContextProvider, UserContextProvider } from "../context";
-import { MuiThemeProvider, ReactQueryProvider } from "../providers";
+import {
+   MuiDatePickerProvider,
+   MuiThemeProvider,
+   ReactQueryProvider,
+} from "../providers";
 
 const BootstrapApplication = () => {
    return (
@@ -8,7 +12,9 @@ const BootstrapApplication = () => {
          <MuiThemeProvider>
             <AppContextProvider>
                <UserContextProvider>
-                  <Outlet />
+                  <MuiDatePickerProvider>
+                     <Outlet />
+                  </MuiDatePickerProvider>
                </UserContextProvider>
             </AppContextProvider>
          </MuiThemeProvider>
