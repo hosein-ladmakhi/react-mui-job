@@ -11,5 +11,9 @@ export const useStateQuery = () => {
       get: (key: string) => {
          return searchParam.get(key);
       },
+      remove: (key: string) => {
+         searchParam.delete(key);
+         setSearchParam(searchParam);
+      },
    };
 };

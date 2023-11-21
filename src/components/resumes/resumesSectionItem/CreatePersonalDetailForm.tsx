@@ -1,17 +1,29 @@
 import { FC } from "react";
 import { Typography, Grid, Button } from "@mui/material";
-import { TextBox } from "../../common/kit";
+import { TextBox } from "../../../common/kit";
 import { useForm } from "react-hook-form";
 import zod from "zod";
-import { resumePersonalDetailForm } from "../../constant/forms";
+import { resumePersonalDetailForm } from "../../../constant/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TObject } from "../../../types/general";
+import { TResume } from "../../../types/apis/resume";
 
 interface ICreatePersonalDetailFormProps {
    formClass: string;
+   data: TObject;
+   resume: TResume;
+   mutateAddDataResumeItem: any;
+   addDataResumeItemLoading: boolean;
+   id: number;
 }
 
 const CreatePersonalDetailForm: FC<ICreatePersonalDetailFormProps> = ({
    formClass,
+   data,
+   addDataResumeItemLoading,
+   mutateAddDataResumeItem,
+   resume,
+   id,
 }) => {
    const { control, handleSubmit } = useForm<
       zod.infer<typeof resumePersonalDetailForm>
@@ -20,18 +32,21 @@ const CreatePersonalDetailForm: FC<ICreatePersonalDetailFormProps> = ({
       mode: "all",
       reValidateMode: "onChange",
       defaultValues: {
-         address: "",
-         age: 0,
-         firstName: "",
-         github: "",
-         jobTitle: "",
-         lastName: "",
-         linkedin: "",
-         phoneNumber: "",
+         address: data?.address || "",
+         age: data?.age || 0,
+         firstName: data?.firstName || "",
+         github: data?.github || "",
+         jobTitle: data?.jobTitle || "",
+         lastName: data?.lastName || "",
+         linkedin: data?.linkedin || "",
+         phoneNumber: data?.phoneNumber || "",
       },
    });
-   const onSubmit = handleSubmit((data) => {
-      console.log(data);
+   const onSubmit = handleSubmit(async (data) => {
+      const response = await mutateAddDataResumeItem({ id, data });
+      if (response?.id) {
+         alert("Save Successfully ...");
+      }
    });
    return (
       <form onSubmit={onSubmit} className={formClass}>

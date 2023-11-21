@@ -9,6 +9,7 @@ import { TJwtToken, TUser, TUserContext } from "../types/models";
 import { getUser } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { appConfig, appRouterPath } from "../constant";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const userContext = createContext<TUserContext>({
    token: "",
@@ -25,6 +26,7 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
    const [token, setToken] = useState<string>(persistedToken);
    const [user, setUser] = useState<TUser>();
    const navigate = useNavigate();
+   const queryClient = useQueryClient();
 
    useEffect(() => {
       (async () => {
@@ -54,6 +56,7 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
    const handleLogout = () => {
       setToken("");
       setUser(undefined);
+      queryClient.clear();
       navigate(appRouterPath.login);
    };
 

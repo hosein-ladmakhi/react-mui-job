@@ -1,13 +1,17 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
-import { TextBox, DatepickerInput } from "../../common/kit";
+import { TextBox, DatepickerInput } from "../../../common/kit";
 import { useForm } from "react-hook-form";
 import zod from "zod";
-import { resumeProfessionalExpreinceForm } from "../../constant/forms";
+import { resumeProfessionalExpreinceForm } from "../../../constant/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TObject } from "../../../types/general";
+import { TResume } from "../../../types/apis/resume";
 
 interface ICreateProfessionalExpreinceFormProps {
    formClass: string;
+   data: TObject;
+   resume: TResume;
 }
 
 const CreateProfessionalExpreinceForm: FC<

@@ -1,13 +1,17 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
-import { TextBox } from "../../common/kit";
+import { TextBox } from "../../../common/kit";
 import { useForm } from "react-hook-form";
 import zod from "zod";
-import { resumeProfileForm } from "../../constant/forms";
+import { resumeProfileForm } from "../../../constant/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TObject } from "../../../types/general";
+import { TResume } from "../../../types/apis/resume";
 
 interface ICreateProfileForm {
    formClass: string;
+   data: TObject;
+   resume: TResume;
 }
 
 const CreateProfileForm: FC<ICreateProfileForm> = ({ formClass }) => {

@@ -1,47 +1,42 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { FC } from "react";
 import { APP_THEME_COLOR } from "../../constant";
-import { Modal, NestedList } from "../../common/kit";
+import { NestedList } from "../../common/kit";
 import { makeStyles } from "tss-react/mui";
-import { useAppContext } from "../../hooks";
+import { useAppContext, useResume, useStateQuery } from "../../hooks";
 import { CREATE_NEW_RESUME_SUBJECT } from "../../constant/modalSubjects";
-import AddNewResume from "./AddNewResume";
-
-const RESUME_LISTS = [
-   {
-      id: 1,
-      text: "Senior React Developer",
-   },
-   {
-      id: 2,
-      text: "Keepa React Developer",
-   },
-   {
-      id: 3,
-      text: "Nodejs Intern Digikala",
-   },
-   {
-      id: 4,
-      text: "React For Snapp",
-   },
-   {
-      id: 5,
-      text: "Nima ladmakhi new resume",
-   },
-];
+import { TResume } from "../../types/apis/resume";
 
 const ResumesList: FC = () => {
    const { classes } = useStyles();
+   const stateQuery = useStateQuery();
+   const { data } = useResume();
    const { handleOpenModal } = useAppContext();
 
    const handleOpenCreateNewResume = () => {
       handleOpenModal({}, CREATE_NEW_RESUME_SUBJECT);
+      stateQuery.remove("resume");
+   };
+
+   const handleSelectResume = (resume: TResume) => {
+      if (resume.id) {
+         stateQuery.set("resume", resume.id);
+      }
    };
 
    return (
-      <Grid item md={3}>
+      <>
          <Box className={classes.root}>
-            <NestedList data={RESUME_LISTS} itemKey="id" itemValue="text" />
+            {data?.length ? (
+               <NestedList
+                  handleClick={handleSelectResume}
+                  data={data!}
+                  itemKey="id"
+                  itemValue="name"
+               />
+            ) : (
+               <Typography variant="h4">No Resume Exist</Typography>
+            )}
             <Button
                onClick={handleOpenCreateNewResume}
                className={classes.button}
@@ -51,9 +46,7 @@ const ResumesList: FC = () => {
                Create New Resume
             </Button>
          </Box>
-
-         <AddNewResume />
-      </Grid>
+      </>
    );
 };
 

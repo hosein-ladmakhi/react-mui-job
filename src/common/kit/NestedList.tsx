@@ -14,6 +14,7 @@ interface INestedListProps {
    itemKey: string;
    itemValue: string;
    itemChildren?: string;
+   handleClick?: (item: any) => void;
 }
 
 const NestedList: FC<INestedListProps> = ({
@@ -21,10 +22,17 @@ const NestedList: FC<INestedListProps> = ({
    itemKey,
    itemValue,
    itemChildren,
+   handleClick,
 }) => {
    const [currentParent, setCurrentParent] = useState<number>();
-   const onSelectParent = (newParent: number) => {
-      setCurrentParent(currentParent === newParent ? undefined : newParent);
+
+   const handleSelectListItem = (selectedItem: any) => {
+      if (itemChildren && selectedItem?.[itemChildren]?.length > 0) {
+         const newParent = selectedItem?.[itemKey];
+         setCurrentParent(currentParent === newParent ? undefined : newParent);
+      } else {
+         handleClick!(selectedItem);
+      }
    };
 
    return (
@@ -34,7 +42,7 @@ const NestedList: FC<INestedListProps> = ({
                <>
                   <ListItem disableGutters disablePadding>
                      <ListItemButton
-                        onClick={onSelectParent.bind(null, item?.[itemKey])}
+                        onClick={handleSelectListItem.bind(null, item)}
                      >
                         <ListItemText>{item?.[itemValue]}</ListItemText>
                         {itemChildren && item?.[itemChildren]?.length > 0 && (
@@ -54,7 +62,12 @@ const NestedList: FC<INestedListProps> = ({
                            {React.Children.toArray(
                               item?.[itemChildren]?.map((subItem: any) => (
                                  <ListItem>
-                                    <ListItemButton>
+                                    <ListItemButton
+                                       onClick={handleClick?.bind(
+                                          null,
+                                          subItem
+                                       )}
+                                    >
                                        <ListItemText>
                                           {subItem?.[itemValue]}
                                        </ListItemText>
@@ -70,6 +83,10 @@ const NestedList: FC<INestedListProps> = ({
          )}
       </List>
    );
+};
+
+NestedList.defaultProps = {
+   handleClick: () => {},
 };
 
 export default NestedList;

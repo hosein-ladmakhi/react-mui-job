@@ -1,10 +1,14 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
-import { ChipInput } from "../../common/kit";
+import { ChipInput } from "../../../common/kit";
 import { useForm } from "react-hook-form";
+import { TObject } from "../../../types/general";
+import { TResume } from "../../../types/apis/resume";
 
 interface ICreateSkillFormProps {
    formClass: string;
+   data: TObject;
+   resume: TResume;
 }
 
 const CreateSkillForm: FC<ICreateSkillFormProps> = ({ formClass }) => {
