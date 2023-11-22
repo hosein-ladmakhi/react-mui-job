@@ -4,7 +4,7 @@ import {
   resumeProfileForm,
   resumeSkillForm,
 } from "@/constant/forms";
-import { useForm } from "@/hooks/useForm";
+import { useForm } from "@/hooks";
 import { EResumeItemType } from "@/types/apis/resume";
 import { useEffect } from "react";
 import { UseFormSetValue } from "react-hook-form";

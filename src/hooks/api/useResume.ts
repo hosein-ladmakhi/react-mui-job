@@ -8,8 +8,8 @@ import {
   editResume,
   getResume,
   getResumes,
-} from "../services/resume";
-import { TAddNewResumeItemBody, TEditResumeBody, TResume, TResumes } from "../types/apis/resume";
+} from "../../services/resume";
+import { TAddNewResumeItemBody, TEditResumeBody, TResume, TResumes } from "../../types/apis/resume";
 
 export const useCreateResume = () => {
   const queryClient = useQueryClient();

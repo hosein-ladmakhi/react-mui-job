@@ -1,14 +1,12 @@
 import { FC, useEffect } from "react";
 import { Grid, Button } from "@mui/material";
 import { TextBox } from "../../../common/kit";
-import zod from "zod";
-import { resumePersonalDetailForm } from "../../../constant/forms";
-import { useForm } from "@/hooks/useForm";
 import { TResumeSectionProps } from "@/types/models/resume";
+import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
+import { EResumeItemType } from "@/types/apis/resume";
 
 const CreatePersonalDetailForm: FC<TResumeSectionProps> = ({ formClass, data, mutate, id }) => {
-  const { control, handleSubmit, setValue } =
-    useForm<zod.infer<typeof resumePersonalDetailForm>>(resumePersonalDetailForm);
+  const { control, handleSubmit, setValue } = useResumeSectionItem(data, EResumeItemType.PersonalDetail);
 
   useEffect(() => {
     setValue("address", data.address || "");

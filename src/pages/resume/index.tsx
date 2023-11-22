@@ -7,20 +7,20 @@ import CreateSectionModal from "@components/resumes/CreateSectionModal";
 import { ResumeContextProvider } from "@/context";
 
 const ResumePage: FC = () => {
-   return (
-      <ResumeContextProvider>
-         <Grid container spacing={2}>
-            <Grid item md={9}>
-               <SelectedResumeDetail />
-            </Grid>
-            <Grid item md={3}>
-               <ResumesList />
-            </Grid>
-            <ModifyResumeModal />
-            <CreateSectionModal />
-         </Grid>
-      </ResumeContextProvider>
-   );
+  return (
+    <ResumeContextProvider>
+      <Grid container spacing={2}>
+        <Grid item md={9}>
+          <SelectedResumeDetail />
+        </Grid>
+        <Grid item md={3}>
+          <ResumesList />
+        </Grid>
+        <ModifyResumeModal />
+        <CreateSectionModal />
+      </Grid>
+    </ResumeContextProvider>
+  );
 };
 
 export default ResumePage;

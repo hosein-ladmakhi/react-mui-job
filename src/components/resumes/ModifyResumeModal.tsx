@@ -7,7 +7,7 @@ import zod from "zod";
 import { createNewResumeForm } from "../../constant/forms";
 import { TCreateResumeBody, TResume } from "../../types/apis/resume";
 import { useAppContext, useCreateResume, useEditResume, useResumeContext } from "../../hooks";
-import { useForm } from "@/hooks/useForm";
+import { useForm } from "@/hooks";
 
 const ModifyResumeModal: FC = () => {
   const { onChangeResume } = useResumeContext();

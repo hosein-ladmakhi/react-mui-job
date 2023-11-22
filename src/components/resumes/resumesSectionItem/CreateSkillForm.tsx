@@ -1,6 +1,6 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
-import { ChipInput } from "../../../common/kit";
+import { ChipInput } from "@/common/kit";
 import { TResumeSectionProps } from "@/types/models/resume";
 import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
 import { EResumeItemType } from "@/types/apis/resume";
