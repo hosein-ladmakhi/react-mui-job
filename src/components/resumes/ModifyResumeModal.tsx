@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
-import { Loading, Modal, TextBox } from "../../common/kit";
+import { Loading, Modal, TextBox, Button } from "../../common/kit";
 import { CREATE_NEW_RESUME_SUBJECT } from "../../constant/modalSubjects";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import zod from "zod";
 import { createNewResumeForm } from "../../constant/forms";
@@ -49,7 +49,7 @@ const ModifyResumeModal: FC = () => {
       ) : (
         <form className={classes.form} onSubmit={onSubmit}>
           <TextBox name="name" label="Resume Name" type="text" control={control} />
-          <Button type="submit" className={classes.button} variant="contained" fullWidth>
+          <Button isSubmit className={classes.button}>
             Save Resume
           </Button>
         </form>

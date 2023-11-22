@@ -1,12 +1,12 @@
 export type TUser = {
-   username: string;
-   password: string;
-   email: string;
-   bio?: string;
-   age: string;
-   firstName: string;
-   lastName: string;
-   logo?: string;
+  username: string;
+  password: string;
+  email: string;
+  bio?: string;
+  age: number;
+  firstName: string;
+  lastName: string;
+  logo?: string;
 };
 
 export type TSignup = Omit<TUser, "logo">;

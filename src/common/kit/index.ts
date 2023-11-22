@@ -9,3 +9,4 @@ export { default as SummaryText } from "./SummaryText";
 export { default as FileUploader } from "./FileUploader";
 export { default as DatepickerInput } from "./DatepickerInput";
 export { default as ChipInput } from "./ChipInput";
+export { default as Button } from "./Button";

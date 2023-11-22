@@ -1,9 +1,10 @@
-import { Grid, Button } from "@mui/material";
+import { Grid } from "@mui/material";
 import { FC } from "react";
 import { TextBox } from "@/common/kit";
 import { TResumeSectionProps } from "@/types/models/resume";
 import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
 import { EResumeItemType } from "@/types/apis/resume";
+import { Button } from "@/common/kit";
 
 const CreateProfileForm: FC<TResumeSectionProps> = ({ formClass, data, id, mutate }) => {
   const { handleSubmit, control } = useResumeSectionItem(data, EResumeItemType.Profile);
@@ -22,7 +23,7 @@ const CreateProfileForm: FC<TResumeSectionProps> = ({ formClass, data, id, mutat
           <TextBox control={control} name="bio" label="Biography" type="textarea" textRows={7} />
         </Grid>
         <Grid item md={3}>
-          <Button type="submit" fullWidth variant="contained" size="large">
+          <Button isSubmit size="large">
             Save Profile
           </Button>
         </Grid>

@@ -1,6 +1,6 @@
-import { Grid, Button } from "@mui/material";
+import { Grid } from "@mui/material";
 import { FC } from "react";
-import { TextBox, DatepickerInput } from "../../../common/kit";
+import { TextBox, DatepickerInput, Button } from "../../../common/kit";
 import { TResumeSectionProps } from "@/types/models/resume";
 import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
 import { EResumeItemType } from "@/types/apis/resume";
@@ -40,7 +40,7 @@ const CreateProfessionalExpreinceForm: FC<TResumeSectionProps> = ({ formClass, d
           <TextBox name="description" label="Description" type="textarea" textRows={3} control={control} />
         </Grid>
         <Grid item md={3}>
-          <Button type="submit" fullWidth variant="contained" size="large">
+          <Button isSubmit size="large">
             Save Professional Exprience
           </Button>
         </Grid>

@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
-import { Grid, Button } from "@mui/material";
-import { TextBox } from "../../../common/kit";
+import { Grid } from "@mui/material";
+import { TextBox, Button } from "../../../common/kit";
 import { TResumeSectionProps } from "@/types/models/resume";
 import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
 import { EResumeItemType } from "@/types/apis/resume";
@@ -54,7 +54,7 @@ const CreatePersonalDetailForm: FC<TResumeSectionProps> = ({ formClass, data, mu
           <TextBox control={control} name="address" label="Address" type="textarea" textRows={3} />
         </Grid>
         <Grid item md={3}>
-          <Button type="submit" fullWidth variant="contained" size="large">
+          <Button isSubmit size="large">
             Save Personal Information
           </Button>
         </Grid>
