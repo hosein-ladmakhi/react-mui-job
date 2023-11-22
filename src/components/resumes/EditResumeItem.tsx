@@ -11,6 +11,7 @@ import { icons } from "../../constant/icons";
 import ResumeItemHeader from "./ResumeItemHeader";
 import {
    useAddDataResumeItem,
+   useDeleteResumeItem,
    useResumeById,
    useStateQuery,
 } from "../../hooks";
@@ -34,10 +35,24 @@ const EditResumeItem: FC = () => {
       mutateAsync: mutateAddDataResumeItem,
    } = useAddDataResumeItem();
 
+   const {
+      isLoading: deleteResumeItemLoading,
+      mutateAsync: deleteResumeItemMutate,
+   } = useDeleteResumeItem();
+
    const handleOnChangeSection = (id: number) =>
       setActiveSection((prevActiveSection) =>
          prevActiveSection === id ? undefined : id
       );
+
+   const handleDeleteItem = async (id: number) => {
+      const response = await deleteResumeItemMutate(id);
+      if (response) {
+         alert("delete successfully ...");
+      } else {
+         alert("delete section failed ...");
+      }
+   };
 
    if (!resume) return <></>;
 
@@ -51,15 +66,22 @@ const EditResumeItem: FC = () => {
                   <Box className={classes.root}>
                      <FlexBox justify="space-between">
                         <Typography variant="h3">{type}</Typography>
-                        <IconButton
-                           onClick={handleOnChangeSection.bind(null, id)}
-                        >
-                           {id === activeSection ? (
-                              <icons.MuiExpandLess />
-                           ) : (
-                              <icons.MuiExpandMore />
-                           )}
-                        </IconButton>
+                        <div>
+                           <IconButton
+                              onClick={handleDeleteItem.bind(null, id)}
+                           >
+                              <icons.MuiDeleteIcon />
+                           </IconButton>
+                           <IconButton
+                              onClick={handleOnChangeSection.bind(null, id)}
+                           >
+                              {id === activeSection ? (
+                                 <icons.MuiExpandLess />
+                              ) : (
+                                 <icons.MuiExpandMore />
+                              )}
+                           </IconButton>
+                        </div>
                      </FlexBox>
                      <Collapse in={id === activeSection}>
                         <Section

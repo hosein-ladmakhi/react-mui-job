@@ -19,6 +19,7 @@ import {
    Logout,
    LoginOutlined,
    HowToReg,
+   DeleteOutline,
 } from "@mui/icons-material";
 
 export const icons = {
@@ -42,4 +43,5 @@ export const icons = {
    MuiLogoutIcon: Logout,
    MuiLoginIcon: LoginOutlined,
    MuiSignupIcon: HowToReg,
+   MuiDeleteIcon: DeleteOutline,
 };

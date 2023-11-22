@@ -28,3 +28,6 @@ export const addResumeItem = (data: TAddNewResumeItemBody) =>
 
 export const addDataToResumeItem = (data: TObject) =>
    httpClient.patch("/resume/item/data", data) as Promise<TResumeItem>;
+
+export const deleteResumeItemById = (id: number) =>
+   httpClient.delete(`/resume/item/${id}`) as Promise<boolean>;

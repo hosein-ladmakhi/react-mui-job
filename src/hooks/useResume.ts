@@ -4,6 +4,7 @@ import {
    addResumeItem,
    createResume,
    deleteResume,
+   deleteResumeItemById,
    editResume,
    getResume,
    getResumes,
@@ -86,6 +87,18 @@ export const useAddDataResumeItem = () => {
    const queryClient = useQueryClient();
    const { isSuccess, isPending, mutateAsync } = useMutation({
       mutationFn: addDataToResumeItem,
+      onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: ["resumes"] });
+      },
+   });
+
+   return { isSuccess, isLoading: isPending, mutateAsync };
+};
+
+export const useDeleteResumeItem = () => {
+   const queryClient = useQueryClient();
+   const { isSuccess, isPending, mutateAsync } = useMutation({
+      mutationFn: deleteResumeItemById,
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ["resumes"] });
       },
