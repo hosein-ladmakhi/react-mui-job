@@ -15,30 +15,29 @@ import {
    TResume,
    TResumes,
 } from "../types/apis/resume";
-import { TObject } from "../types/general";
 
 export const useCreateResume = () => {
    const queryClient = useQueryClient();
-   const { isSuccess, isPending, mutateAsync } = useMutation({
+   const { isPending, mutateAsync } = useMutation({
       mutationFn: createResume,
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ["resumes"] });
       },
    });
 
-   return { isSuccess, isLoading: isPending, mutateAsync };
+   return { isCreateResumeLoading: isPending, createResumeMutate: mutateAsync };
 };
 
 export const useEditResume = (id: number) => {
    const queryClient = useQueryClient();
-   const { isSuccess, isPending, mutateAsync } = useMutation({
+   const { isPending, mutateAsync } = useMutation({
       mutationFn: (data: TEditResumeBody) => editResume(id, data!),
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ["resumes"] });
       },
    });
 
-   return { isSuccess, isLoading: isPending, mutateAsync };
+   return { isEditResumeLoading: isPending, editResumeMutate: mutateAsync };
 };
 
 export const useDeleteResume = (id: number) => {
@@ -73,14 +72,17 @@ export const useResumeById = (id: number) => {
 
 export const useAddResumeItem = () => {
    const queryClient = useQueryClient();
-   const { isSuccess, isPending, mutateAsync } = useMutation({
+   const { isPending, mutateAsync } = useMutation({
       mutationFn: (data: TAddNewResumeItemBody) => addResumeItem(data),
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ["resumes"] });
       },
    });
 
-   return { isSuccess, isLoading: isPending, mutateAsync };
+   return {
+      isAddResumeItemLoading: isPending,
+      addResumeItemMutate: mutateAsync,
+   };
 };
 
 export const useAddDataResumeItem = () => {

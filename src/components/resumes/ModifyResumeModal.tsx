@@ -6,94 +6,65 @@ import { makeStyles } from "tss-react/mui";
 import zod from "zod";
 import { createNewResumeForm } from "../../constant/forms";
 import { TCreateResumeBody, TResume } from "../../types/apis/resume";
-import {
-   useAppContext,
-   useCreateResume,
-   useEditResume,
-   useResumeContext,
-} from "../../hooks";
+import { useAppContext, useCreateResume, useEditResume, useResumeContext } from "../../hooks";
 import { useForm } from "@/hooks/useForm";
 
 const ModifyResumeModal: FC = () => {
-   const { onChangeResume } = useResumeContext();
-   const { handleModalStatus, modalContent } = useAppContext();
-   const selectedResume = modalContent as TResume;
-   const hasSelectedResume = !!selectedResume?.id;
+  const { onChangeResume } = useResumeContext();
 
-   const { isLoading: createLoading, mutateAsync: createMutateAsync } =
-      useCreateResume();
+  const { handleModalStatus, modalContent: selectedResume } = useAppContext<TResume>();
 
-   const { isLoading: editLoading, mutateAsync: editMutateAsync } =
-      useEditResume(selectedResume?.id);
+  const { isCreateResumeLoading, createResumeMutate } = useCreateResume();
 
-   const { classes } = useStyles();
-   const { control, handleSubmit, setValue } = useForm<
-      zod.infer<typeof createNewResumeForm>
-   >(
-      {
-         name: "",
-      },
-      createNewResumeForm
-   );
+  const { isEditResumeLoading, editResumeMutate } = useEditResume(selectedResume?.id);
 
-   useEffect(() => {
-      setValue("name", selectedResume?.name || "");
-   }, [selectedResume]);
+  const { classes } = useStyles();
 
-   const onSubmit = handleSubmit(async (data: TCreateResumeBody) => {
-      const response = hasSelectedResume
-         ? await editMutateAsync(data)
-         : await createMutateAsync(data);
+  const { control, handleSubmit, setValue } = useForm<zod.infer<typeof createNewResumeForm>>(createNewResumeForm);
 
-      if (response?.id) {
-         alert(
-            `Resume ${hasSelectedResume ? "Edit" : "Create"} Successfully ...`
-         );
-         handleModalStatus(false);
-         onChangeResume(response?.id);
-      } else {
-         alert(
-            `Resume ${hasSelectedResume ? "Edit" : "Create"} has failed ...`
-         );
-      }
-   });
+  const hasSelectedResume = !!selectedResume?.id;
 
-   return (
-      <Modal size="sm" subject={CREATE_NEW_RESUME_SUBJECT}>
-         <Typography variant="h4">
-            {hasSelectedResume ? "Edit" : "Create"} Resume
-         </Typography>
-         {createLoading || editLoading ? (
-            <Loading variant="circle" />
-         ) : (
-            <form className={classes.form} onSubmit={onSubmit}>
-               <TextBox
-                  name="name"
-                  label="Resume Name"
-                  type="text"
-                  control={control}
-               />
-               <Button
-                  type="submit"
-                  className={classes.button}
-                  variant="contained"
-                  fullWidth
-               >
-                  Save Resume
-               </Button>
-            </form>
-         )}
-      </Modal>
-   );
+  const selectedResumeOperation = hasSelectedResume ? "Edit" : "Create";
+
+  useEffect(() => {
+    setValue("name", selectedResume?.name || "");
+  }, [selectedResume]);
+
+  const onSubmit = handleSubmit(async (data: TCreateResumeBody) => {
+    const response = hasSelectedResume ? await editResumeMutate(data) : await createResumeMutate(data);
+    if (response?.id) {
+      alert(`Resume ${selectedResumeOperation} Successfully ...`);
+      handleModalStatus(false);
+      onChangeResume(response?.id);
+    } else {
+      alert(`Resume ${selectedResumeOperation} has failed ...`);
+    }
+  });
+
+  return (
+    <Modal size="sm" subject={CREATE_NEW_RESUME_SUBJECT}>
+      <Typography variant="h4">{selectedResumeOperation} Resume</Typography>
+      {isCreateResumeLoading || isEditResumeLoading ? (
+        <Loading variant="circle" />
+      ) : (
+        <form className={classes.form} onSubmit={onSubmit}>
+          <TextBox name="name" label="Resume Name" type="text" control={control} />
+          <Button type="submit" className={classes.button} variant="contained" fullWidth>
+            Save Resume
+          </Button>
+        </form>
+      )}
+    </Modal>
+  );
 };
 
 export default ModifyResumeModal;
 
 const useStyles = makeStyles()(() => ({
-   form: {
-      marginTop: "20px",
-   },
-   button: {
-      marginTop: "10px",
-   },
+  form: {
+    marginTop: "20px",
+  },
+  button: {
+    marginTop: "10px",
+  },
 }));

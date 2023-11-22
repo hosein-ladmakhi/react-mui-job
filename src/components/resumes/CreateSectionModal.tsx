@@ -1,20 +1,20 @@
 import React, { FC } from "react";
-import { Modal } from "../../common/kit";
-import { ADD_NEW_SECTION_TO_RESUME_SUBJECT } from "../../constant/modalSubjects";
+import { Modal } from "@/common/kit";
+import { ADD_NEW_SECTION_TO_RESUME_SUBJECT } from "@/constant/modalSubjects";
 import { Button, Grid, Typography } from "@mui/material";
-import { EResumeItemType } from "../../types/apis/resume";
-import { useAddResumeItem, useAppContext } from "../../hooks";
+import { EResumeItemType } from "@/types/apis/resume";
+import { useAddResumeItem, useAppContext } from "@/hooks";
 
 const CreateSection: FC = () => {
    const { modalContent, handleModalStatus } = useAppContext();
-   const { mutateAsync } = useAddResumeItem();
+   const { addResumeItemMutate } = useAddResumeItem();
 
    const onSelectSection = async (type: EResumeItemType) => {
-      if (modalContent?.id) {
-         const response = await mutateAsync({ resume: modalContent?.id, type });
-         console.log("response", response);
-         handleModalStatus(false);
-      }
+      addResumeItemMutate({
+         resume: modalContent?.id,
+         type,
+      });
+      handleModalStatus(false);
    };
 
    return (
