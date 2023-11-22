@@ -12,18 +12,36 @@ interface ICreateProfileForm {
    formClass: string;
    data: TObject;
    resume: TResume;
+   mutateAddDataResumeItem: any;
+   addDataResumeItemLoading: boolean;
+   id: number;
 }
 
-const CreateProfileForm: FC<ICreateProfileForm> = ({ formClass }) => {
+const CreateProfileForm: FC<ICreateProfileForm> = ({
+   formClass,
+   addDataResumeItemLoading,
+   data,
+   id,
+   mutateAddDataResumeItem,
+   resume,
+}) => {
    const { control, handleSubmit } = useForm<
       zod.infer<typeof resumeProfileForm>
    >({
       resolver: zodResolver(resumeProfileForm),
       reValidateMode: "onChange",
       mode: "all",
+      defaultValues: {
+         bio: data?.bio || "",
+      },
    });
 
-   const onSubmit = handleSubmit(() => {});
+   const onSubmit = handleSubmit(async (data) => {
+      const response = await mutateAddDataResumeItem({ id, data });
+      if (response?.id) {
+         alert("Save Successfully ...");
+      }
+   });
 
    return (
       <form onSubmit={onSubmit} className={formClass}>

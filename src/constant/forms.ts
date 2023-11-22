@@ -94,3 +94,7 @@ export const createNewResumeForm = zod.object({
       .string({ required_error: "You must provide your resume name" })
       .min(3, "Your resume name must include 3 character at least"),
 });
+
+export const skillResumeForm = zod.object({
+   skill: zod.array(zod.string()),
+});

@@ -12,11 +12,21 @@ interface ICreateProfessionalExpreinceFormProps {
    formClass: string;
    data: TObject;
    resume: TResume;
+   mutateAddDataResumeItem: any;
+   addDataResumeItemLoading: boolean;
+   id: number;
 }
 
 const CreateProfessionalExpreinceForm: FC<
    ICreateProfessionalExpreinceFormProps
-> = ({ formClass }) => {
+> = ({
+   formClass,
+   addDataResumeItemLoading,
+   data,
+   id,
+   mutateAddDataResumeItem,
+   resume,
+}) => {
    const { control, handleSubmit } = useForm<
       zod.infer<typeof resumeProfessionalExpreinceForm>
    >({
@@ -24,17 +34,22 @@ const CreateProfessionalExpreinceForm: FC<
       reValidateMode: "onChange",
       resolver: zodResolver(resumeProfessionalExpreinceForm),
       defaultValues: {
-         city: "",
-         company: "",
-         country: "",
-         description: "",
-         end: new Date(),
-         jobTitle: "",
-         start: new Date(),
+         city: data?.city || "",
+         company: data?.company || "",
+         country: data?.country || "",
+         description: data?.description || "",
+         end: data?.end ? new Date(data?.end) : new Date(),
+         start: data?.start ? new Date(data?.start) : new Date(),
+         jobTitle: data?.jobTitle || "",
       },
    });
 
-   const onSubmit = handleSubmit(() => {});
+   const onSubmit = handleSubmit(async (data) => {
+      const response = await mutateAddDataResumeItem({ id, data });
+      if (response?.id) {
+         alert("Save Successfully ...");
+      }
+   });
 
    return (
       <form onSubmit={onSubmit} className={formClass}>

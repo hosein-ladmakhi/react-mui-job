@@ -31,6 +31,7 @@ export const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
    useEffect(() => {
       (async () => {
          try {
+            if (window.location.href.includes("auth")) return;
             window.localStorage.setItem(appConfig.TOKEN, token);
             const decodedToken = JSON.parse(
                window.atob(token?.split(".")[1])
