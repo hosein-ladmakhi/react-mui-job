@@ -2,15 +2,14 @@ import { FC, useState } from "react";
 import { FileUploader, TextBox } from "../../common/kit";
 import { Button, Grid } from "@mui/material";
 import { useUserContext, useViewport } from "../../hooks";
-import { useForm } from "react-hook-form";
 import zod from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { profileFormValidation } from "../../constant/forms";
 import SeoLayout from "../../layout/SeoLayout";
 import { profilePageSeoMeta } from "../../seo-meta";
 import { uploadImage } from "../../services/uploader";
 import { TUser } from "../../types/models";
 import { updateUser } from "../../services/auth";
+import { useForm } from "@/hooks/useForm";
 
 const ProfilePage: FC = () => {
    const [avatar, setAvatar] = useState<File>();
@@ -19,12 +18,8 @@ const ProfilePage: FC = () => {
    const onChangeAvatar = (file?: File) => setAvatar(file);
    const { handleSubmit, control } = useForm<
       zod.infer<typeof profileFormValidation>
-   >({
-      resolver: zodResolver(profileFormValidation),
-      mode: "all",
-      criteriaMode: "all",
-      reValidateMode: "onChange",
-      defaultValues: {
+   >(
+      {
          age: +user?.age! || 0,
          bio: user?.bio,
          email: user?.email,
@@ -32,7 +27,8 @@ const ProfilePage: FC = () => {
          lastName: user?.lastName,
          username: user?.username,
       },
-   });
+      profileFormValidation
+   );
 
    const handleUploadingImage = () => {
       const uploadImageFormdata = new FormData();

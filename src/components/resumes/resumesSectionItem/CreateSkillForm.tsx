@@ -1,17 +1,14 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
 import { ChipInput } from "../../../common/kit";
-import { useForm } from "react-hook-form";
 import { TObject } from "../../../types/general";
-import { TResume } from "../../../types/apis/resume";
 import zod from "zod";
 import { skillResumeForm } from "../../../constant/forms";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "@/hooks/useForm";
 
 interface ICreateSkillFormProps {
    formClass: string;
    data: TObject;
-   resume: TResume;
    mutateAddDataResumeItem: any;
    addDataResumeItemLoading: boolean;
    id: number;
@@ -23,15 +20,10 @@ const CreateSkillForm: FC<ICreateSkillFormProps> = ({
    data,
    id,
    mutateAddDataResumeItem,
-   resume,
 }) => {
    const { control, handleSubmit } = useForm<zod.infer<typeof skillResumeForm>>(
-      {
-         defaultValues: { skill: data?.skill || [] },
-         resolver: zodResolver(skillResumeForm),
-         reValidateMode: "onChange",
-         mode: "all",
-      }
+      { skill: data?.skill || [] },
+      skillResumeForm
    );
 
    const onSubmit = handleSubmit(async (data) => {

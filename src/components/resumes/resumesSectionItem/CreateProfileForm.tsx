@@ -1,17 +1,14 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
 import { TextBox } from "../../../common/kit";
-import { useForm } from "react-hook-form";
 import zod from "zod";
 import { resumeProfileForm } from "../../../constant/forms";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TObject } from "../../../types/general";
-import { TResume } from "../../../types/apis/resume";
+import { useForm } from "@/hooks/useForm";
 
 interface ICreateProfileForm {
    formClass: string;
    data: TObject;
-   resume: TResume;
    mutateAddDataResumeItem: any;
    addDataResumeItemLoading: boolean;
    id: number;
@@ -23,18 +20,15 @@ const CreateProfileForm: FC<ICreateProfileForm> = ({
    data,
    id,
    mutateAddDataResumeItem,
-   resume,
 }) => {
    const { control, handleSubmit } = useForm<
       zod.infer<typeof resumeProfileForm>
-   >({
-      resolver: zodResolver(resumeProfileForm),
-      reValidateMode: "onChange",
-      mode: "all",
-      defaultValues: {
+   >(
+      {
          bio: data?.bio || "",
       },
-   });
+      resumeProfileForm
+   );
 
    const onSubmit = handleSubmit(async (data) => {
       const response = await mutateAddDataResumeItem({ id, data });

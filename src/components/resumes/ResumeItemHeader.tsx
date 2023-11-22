@@ -3,7 +3,7 @@ import { FC } from "react";
 import { FlexBox } from "../../common/kit";
 import { makeStyles } from "tss-react/mui";
 import { APP_THEME_COLOR } from "../../constant";
-import { useAppContext, useDeleteResume, useStateQuery } from "../../hooks";
+import { useAppContext, useDeleteResume, useResumeContext } from "../../hooks";
 import {
    ADD_NEW_SECTION_TO_RESUME_SUBJECT,
    CREATE_NEW_RESUME_SUBJECT,
@@ -17,8 +17,8 @@ interface IResumeItemHeaderProps {
 const ResumeItemHeader: FC<IResumeItemHeaderProps> = ({ resume }) => {
    const { classes } = useStyles();
    const { handleOpenModal } = useAppContext();
+   const { onChangeResume } = useResumeContext();
    const { mutateAsync: deleteMutate } = useDeleteResume(resume?.id);
-   const stateQuery = useStateQuery();
 
    const handleCreateNewSectionModal = () => {
       handleOpenModal(resume, ADD_NEW_SECTION_TO_RESUME_SUBJECT);
@@ -33,7 +33,7 @@ const ResumeItemHeader: FC<IResumeItemHeaderProps> = ({ resume }) => {
          const response = await deleteMutate();
          if (response) {
             alert("Resume delete successfully");
-            stateQuery.remove("resume");
+            onChangeResume(undefined);
          } else {
             alert("Delete Resume failed ...");
          }

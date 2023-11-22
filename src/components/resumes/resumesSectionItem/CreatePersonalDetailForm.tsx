@@ -1,17 +1,14 @@
 import { FC } from "react";
-import { Typography, Grid, Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { TextBox } from "../../../common/kit";
-import { useForm } from "react-hook-form";
 import zod from "zod";
 import { resumePersonalDetailForm } from "../../../constant/forms";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TObject } from "../../../types/general";
-import { TResume } from "../../../types/apis/resume";
+import { useForm } from "@/hooks/useForm";
 
 interface ICreatePersonalDetailFormProps {
    formClass: string;
    data: TObject;
-   resume: TResume;
    mutateAddDataResumeItem: any;
    addDataResumeItemLoading: boolean;
    id: number;
@@ -22,16 +19,12 @@ const CreatePersonalDetailForm: FC<ICreatePersonalDetailFormProps> = ({
    data,
    addDataResumeItemLoading,
    mutateAddDataResumeItem,
-   resume,
    id,
 }) => {
    const { control, handleSubmit } = useForm<
       zod.infer<typeof resumePersonalDetailForm>
-   >({
-      resolver: zodResolver(resumePersonalDetailForm),
-      mode: "all",
-      reValidateMode: "onChange",
-      defaultValues: {
+   >(
+      {
          address: data?.address || "",
          age: data?.age || 0,
          firstName: data?.firstName || "",
@@ -41,7 +34,8 @@ const CreatePersonalDetailForm: FC<ICreatePersonalDetailFormProps> = ({
          linkedin: data?.linkedin || "",
          phoneNumber: data?.phoneNumber || "",
       },
-   });
+      resumePersonalDetailForm
+   );
    const onSubmit = handleSubmit(async (data) => {
       const response = await mutateAddDataResumeItem({ id, data });
       if (response?.id) {

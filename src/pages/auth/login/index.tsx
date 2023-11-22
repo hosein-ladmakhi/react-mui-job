@@ -1,11 +1,9 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { FlexBox, Loading, TextBox } from "../../../common/kit";
-import { useForm } from "react-hook-form";
 import { icons } from "../../../constant/icons";
 import zod from "zod";
 import { loginFormValidation } from "../../../constant/forms";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import { APP_THEME_COLOR, appRouterPath } from "../../../constant";
 import { makeStyles } from "tss-react/mui";
@@ -13,6 +11,7 @@ import SeoLayout from "../../../layout/SeoLayout";
 import { loginPageSeoMeta } from "../../../seo-meta";
 import { useLoginAuth, useUserContext } from "../../../hooks";
 import { TLogin } from "../../../types/models";
+import { useForm } from "@/hooks/useForm";
 
 const LoginPage: FC = () => {
    const { isLoading, mutateAsync } = useLoginAuth();
@@ -21,16 +20,13 @@ const LoginPage: FC = () => {
    const { classes } = useStyles();
    const { control, handleSubmit } = useForm<
       zod.infer<typeof loginFormValidation>
-   >({
-      mode: "all",
-      criteriaMode: "all",
-      reValidateMode: "onChange",
-      defaultValues: {
+   >(
+      {
          password: "",
          email: "",
       },
-      resolver: zodResolver(loginFormValidation),
-   });
+      loginFormValidation
+   );
 
    const onSubmit = async (data: TLogin) => {
       const response = await mutateAsync(data);

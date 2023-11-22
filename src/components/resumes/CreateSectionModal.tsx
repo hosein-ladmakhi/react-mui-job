@@ -5,7 +5,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { EResumeItemType } from "../../types/apis/resume";
 import { useAddResumeItem, useAppContext } from "../../hooks";
 
-const AddNewSection: FC = () => {
+const CreateSection: FC = () => {
    const { modalContent, handleModalStatus } = useAppContext();
    const { mutateAsync } = useAddResumeItem();
 
@@ -40,4 +40,4 @@ const AddNewSection: FC = () => {
    );
 };
 
-export default AddNewSection;
+export default CreateSection;

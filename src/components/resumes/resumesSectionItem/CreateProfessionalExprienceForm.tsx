@@ -1,17 +1,14 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
 import { TextBox, DatepickerInput } from "../../../common/kit";
-import { useForm } from "react-hook-form";
 import zod from "zod";
 import { resumeProfessionalExpreinceForm } from "../../../constant/forms";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TObject } from "../../../types/general";
-import { TResume } from "../../../types/apis/resume";
+import { useForm } from "@/hooks/useForm";
 
 interface ICreateProfessionalExpreinceFormProps {
    formClass: string;
    data: TObject;
-   resume: TResume;
    mutateAddDataResumeItem: any;
    addDataResumeItemLoading: boolean;
    id: number;
@@ -25,15 +22,11 @@ const CreateProfessionalExpreinceForm: FC<
    data,
    id,
    mutateAddDataResumeItem,
-   resume,
 }) => {
    const { control, handleSubmit } = useForm<
       zod.infer<typeof resumeProfessionalExpreinceForm>
-   >({
-      mode: "all",
-      reValidateMode: "onChange",
-      resolver: zodResolver(resumeProfessionalExpreinceForm),
-      defaultValues: {
+   >(
+      {
          city: data?.city || "",
          company: data?.company || "",
          country: data?.country || "",
@@ -42,7 +35,8 @@ const CreateProfessionalExpreinceForm: FC<
          start: data?.start ? new Date(data?.start) : new Date(),
          jobTitle: data?.jobTitle || "",
       },
-   });
+      resumeProfessionalExpreinceForm
+   );
 
    const onSubmit = handleSubmit(async (data) => {
       const response = await mutateAddDataResumeItem({ id, data });

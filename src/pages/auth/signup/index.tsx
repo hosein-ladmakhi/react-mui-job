@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import { FlexBox, Loading, TextBox } from "../../../common/kit";
-import { useForm } from "react-hook-form";
 import { icons } from "../../../constant/icons";
 import zod from "zod";
 import { signupFormValidation } from "../../../constant/forms";
@@ -13,6 +12,7 @@ import SeoLayout from "../../../layout/SeoLayout";
 import { signupPageSeoMeta } from "../../../seo-meta";
 import { useSignupAuth, useUserContext } from "../../../hooks";
 import { TSignup } from "../../../types/models";
+import { useForm } from "@/hooks/useForm";
 
 const SignupPage: FC = () => {
    const { isLoading, mutateAsync } = useSignupAuth();
@@ -21,11 +21,8 @@ const SignupPage: FC = () => {
    const { classes } = useStyles();
    const { control, handleSubmit } = useForm<
       zod.infer<typeof signupFormValidation>
-   >({
-      mode: "all",
-      criteriaMode: "all",
-      reValidateMode: "onChange",
-      defaultValues: {
+   >(
+      {
          password: "",
          username: "",
          age: 0,
@@ -33,8 +30,8 @@ const SignupPage: FC = () => {
          firstName: "",
          lastName: "",
       },
-      resolver: zodResolver(signupFormValidation),
-   });
+      signupFormValidation
+   );
 
    const onSubmit = async (data: TSignup) => {
       const response = await mutateAsync(data);
