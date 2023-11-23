@@ -9,17 +9,17 @@ import { dashboardRoutes } from "./dashboard";
 import { authRoutes } from "./auth";
 
 export const appRouter = createBrowserRouter([
-   {
-      element: <BootstrapApplication />,
-      children: [
-         {
-            element: <MainLayout />,
-            children: dashboardRoutes,
-         },
-         {
-            element: <AuthLayout />,
-            children: authRoutes,
-         },
-      ],
-   },
+  {
+    element: <BootstrapApplication />,
+    children: [
+      {
+        element: <MainLayout />,
+        children: dashboardRoutes,
+      },
+      {
+        element: <AuthLayout />,
+        children: authRoutes,
+      },
+    ],
+  },
 ]);

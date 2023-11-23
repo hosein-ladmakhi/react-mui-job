@@ -1,18 +1,18 @@
 import { Stack, Typography } from "@mui/material";
 import { FC, useEffect } from "react";
-import { FlexBox, Loading, TextBox, Button } from "../../../common/kit";
-import { icons } from "../../../constant/icons";
+import { FlexBox, Loading, TextBox, Button } from "@/common/kit";
+import { icons } from "@/constant/icons";
 import zod from "zod";
-import { loginFormValidation } from "../../../constant/forms";
 import { Link, useNavigate } from "react-router-dom";
-import { APP_THEME_COLOR, appRouterPath } from "../../../constant";
+import { APP_THEME_COLOR, appRouterPath } from "@/constant";
 import { makeStyles } from "tss-react/mui";
-import SeoLayout from "../../../layout/SeoLayout";
-import { loginPageSeoMeta } from "../../../seo-meta";
-import { useLoginAuth, useUserContext } from "../../../hooks";
-import { TLogin } from "../../../types/models";
+import SeoLayout from "@/layout/SeoLayout";
+import { useLoginAuth, useUserContext } from "@/hooks";
 import { useForm } from "@/hooks";
 import { successNotify } from "@/lib";
+import { loginPageSeoMeta } from "./metadata";
+import { loginFormValidation } from "./formSchemas/loginFormValidation";
+import { TLogin } from "./index.type";
 
 const LoginPage: FC = () => {
   const { isLoading, mutateAsync } = useLoginAuth();

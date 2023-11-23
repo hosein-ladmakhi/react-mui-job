@@ -10,29 +10,29 @@ const NotFoundPage = lazy(() => import("../pages/notfound"));
 const LogoutPage = lazy(() => import("../pages/logout"));
 
 export const dashboardRoutes = [
-   {
-      element: <CompaniesPage />,
-      path: appRouterPath.companies,
-      index: true,
-   },
-   {
-      element: <JobsPage />,
-      path: appRouterPath.jobs,
-   },
-   {
-      element: <ProfilePage />,
-      path: appRouterPath.profile,
-   },
-   {
-      element: <ResumePage />,
-      path: appRouterPath.resumes,
-   },
-   {
-      element: <NotFoundPage />,
-      path: appRouterPath.notfound,
-   },
-   {
-      element: <LogoutPage />,
-      path: appRouterPath.logout,
-   },
+  {
+    element: <CompaniesPage />,
+    path: appRouterPath.companies,
+    index: true,
+  },
+  {
+    element: <JobsPage />,
+    path: appRouterPath.jobs,
+  },
+  {
+    element: <ProfilePage />,
+    path: appRouterPath.profile,
+  },
+  {
+    element: <ResumePage />,
+    path: appRouterPath.resumes,
+  },
+  {
+    element: <NotFoundPage />,
+    path: appRouterPath.notfound,
+  },
+  {
+    element: <LogoutPage />,
+    path: appRouterPath.logout,
+  },
 ];

@@ -7,5 +7,4 @@ export * from "./util/useStateQuery";
 export * from "./api/useAuth";
 export * from "./context/useUserContext";
 export * from "./api/useResume";
-export * from "./context/useResumeContext";
 export * from "./util/useForm";

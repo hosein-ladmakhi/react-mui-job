@@ -3,15 +3,15 @@ import { TextBox } from "@/common/kit";
 import { Button, Grid } from "@mui/material";
 import { useUserContext } from "@/hooks";
 import zod from "zod";
-import { profileFormValidation } from "@/constant/forms";
 import SeoLayout from "@/layout/SeoLayout";
-import { profilePageSeoMeta } from "@/seo-meta";
 import { uploadImage } from "@/services/uploader";
 import { TUser } from "@/types/models";
 import { updateUser } from "@/services/auth";
 import { useForm } from "@/hooks";
-import ProfileFileUploader from "@/components/profile/ProfileFileUploader";
 import { successNotify } from "@/lib";
+import { profilePageSeoMeta } from "./metadata";
+import ProfileFileUploader from "./components/ProfileFileUploader";
+import { profileFormValidation } from "./formSchemas/profileFormValidation";
 
 const ProfilePage: FC = () => {
   const avatarRef = useRef<File>();

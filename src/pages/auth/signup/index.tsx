@@ -3,16 +3,16 @@ import { Stack, Typography } from "@mui/material";
 import { FlexBox, Loading, TextBox, Button } from "@/common/kit";
 import { icons } from "../../../constant/icons";
 import zod from "zod";
-import { signupFormValidation } from "@/constant/forms";
 import { Link, useNavigate } from "react-router-dom";
 import { APP_THEME_COLOR, appRouterPath } from "@/constant";
 import { makeStyles } from "tss-react/mui";
 import SeoLayout from "@/layout/SeoLayout";
-import { signupPageSeoMeta } from "@/seo-meta";
 import { useSignupAuth, useUserContext } from "@/hooks";
-import { TSignup } from "@/types/models";
 import { useForm } from "@/hooks";
 import { successNotify } from "@/lib";
+import { signupPageSeoMeta } from "./metadata";
+import { signupFormValidation } from "./formSchemas/signupFormValidation";
+import { TSignup } from "./index.type";
 
 const SignupPage: FC = () => {
   const { isLoading, mutateAsync } = useSignupAuth();
