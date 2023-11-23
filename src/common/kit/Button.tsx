@@ -12,9 +12,20 @@ interface IButtonProps extends PropsWithChildren {
   isSubmit?: boolean;
   className?: string;
   color?: "primary" | "error" | "info";
+  fullWidth?: boolean;
 }
 
-const Button: FC<IButtonProps> = ({ children, onClick, size, loading, Icon, isSubmit, className, color }) => {
+const Button: FC<IButtonProps> = ({
+  children,
+  onClick,
+  size,
+  loading,
+  Icon,
+  isSubmit,
+  className,
+  color,
+  fullWidth,
+}) => {
   const { classes, cx } = useStyles();
 
   return (
@@ -23,7 +34,7 @@ const Button: FC<IButtonProps> = ({ children, onClick, size, loading, Icon, isSu
       type={isSubmit ? "submit" : "button"}
       variant="contained"
       onClick={onClick}
-      fullWidth
+      fullWidth={fullWidth}
       size={size}
       className={cx(className)}
     >
@@ -45,6 +56,7 @@ Button.defaultProps = {
   loading: false,
   className: "",
   color: "primary",
+  fullWidth: true,
 };
 
 export default Button;

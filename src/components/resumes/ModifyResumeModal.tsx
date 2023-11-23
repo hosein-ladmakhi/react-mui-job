@@ -8,6 +8,7 @@ import { createNewResumeForm } from "../../constant/forms";
 import { TCreateResumeBody, TResume } from "../../types/apis/resume";
 import { useAppContext, useCreateResume, useEditResume, useResumeContext } from "../../hooks";
 import { useForm } from "@/hooks";
+import { errorNotify, successNotify } from "@/lib";
 
 const ModifyResumeModal: FC = () => {
   const { onChangeResume } = useResumeContext();
@@ -33,11 +34,11 @@ const ModifyResumeModal: FC = () => {
   const onSubmit = handleSubmit(async (data: TCreateResumeBody) => {
     const response = hasSelectedResume ? await editResumeMutate(data) : await createResumeMutate(data);
     if (response?.id) {
-      alert(`Resume ${selectedResumeOperation} Successfully ...`);
+      successNotify(`Resume ${selectedResumeOperation} Successfully ...`);
       handleModalStatus(false);
       onChangeResume(response?.id);
     } else {
-      alert(`Resume ${selectedResumeOperation} has failed ...`);
+      errorNotify(`Resume ${selectedResumeOperation} has failed ...`);
     }
   });
 

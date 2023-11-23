@@ -12,6 +12,7 @@ import { loginPageSeoMeta } from "../../../seo-meta";
 import { useLoginAuth, useUserContext } from "../../../hooks";
 import { TLogin } from "../../../types/models";
 import { useForm } from "@/hooks";
+import { successNotify } from "@/lib";
 
 const LoginPage: FC = () => {
   const { isLoading, mutateAsync } = useLoginAuth();
@@ -28,11 +29,11 @@ const LoginPage: FC = () => {
   const onSubmit = async (data: TLogin) => {
     const response = await mutateAsync(data);
     if (response?.token) {
-      alert("Login Successfully ...");
+      successNotify("Login Successfully ...");
       handleOnChangeToken(response?.token);
       navigate("/");
     } else {
-      alert("Login Failed ...");
+      successNotify("Login Failed ...");
     }
   };
 

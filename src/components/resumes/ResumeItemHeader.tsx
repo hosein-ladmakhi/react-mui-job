@@ -1,11 +1,12 @@
 import { Typography, Stack } from "@mui/material";
 import { FC } from "react";
-import { FlexBox, Button } from "../../common/kit";
+import { FlexBox, Button } from "@/common/kit";
 import { makeStyles } from "tss-react/mui";
-import { APP_THEME_COLOR } from "../../constant";
-import { useAppContext, useDeleteResume, useResumeContext } from "../../hooks";
-import { ADD_NEW_SECTION_TO_RESUME_SUBJECT, CREATE_NEW_RESUME_SUBJECT } from "../../constant/modalSubjects";
-import { TResume } from "../../types/apis/resume";
+import { APP_THEME_COLOR } from "@/constant";
+import { useAppContext, useDeleteResume, useResumeContext } from "@/hooks";
+import { ADD_NEW_SECTION_TO_RESUME_SUBJECT, CREATE_NEW_RESUME_SUBJECT } from "@/constant/modalSubjects";
+import { TResume } from "@/types/apis/resume";
+import { errorNotify, successNotify } from "@/lib";
 
 interface IResumeItemHeaderProps {
   resume: TResume;
@@ -29,10 +30,10 @@ const ResumeItemHeader: FC<IResumeItemHeaderProps> = ({ resume }) => {
     if (window.confirm("are you sure")) {
       const response = await deleteMutate();
       if (response) {
-        alert("Resume delete successfully");
+        successNotify("Resume delete successfully");
         onChangeResume(undefined);
       } else {
-        alert("Delete Resume failed ...");
+        errorNotify("Delete Resume failed ...");
       }
     }
   };
@@ -40,12 +41,14 @@ const ResumeItemHeader: FC<IResumeItemHeaderProps> = ({ resume }) => {
   return (
     <FlexBox justify="space-between" className={classes.root}>
       <Typography variant="h3">{resume.name}</Typography>
-      <Stack spacing={1} direction="row">
-        <Button onClick={handleCreateNewSectionModal}>Add New Section</Button>
-        <Button color="error" onClick={handleDeleteResume}>
+      <Stack spacing={1} alignItems="center" justifyContent="center" direction="row">
+        <Button fullWidth={false} onClick={handleCreateNewSectionModal}>
+          Add New Section
+        </Button>
+        <Button fullWidth={false} color="error" onClick={handleDeleteResume}>
           Delete
         </Button>
-        <Button color="info" onClick={handleUpdateResumeName}>
+        <Button fullWidth={false} color="info" onClick={handleUpdateResumeName}>
           Update
         </Button>
       </Stack>

@@ -12,6 +12,7 @@ import { signupPageSeoMeta } from "@/seo-meta";
 import { useSignupAuth, useUserContext } from "@/hooks";
 import { TSignup } from "@/types/models";
 import { useForm } from "@/hooks";
+import { successNotify } from "@/lib";
 
 const SignupPage: FC = () => {
   const { isLoading, mutateAsync } = useSignupAuth();
@@ -31,11 +32,11 @@ const SignupPage: FC = () => {
   const onSubmit = async (data: TSignup) => {
     const response = await mutateAsync(data);
     if (response.token) {
-      alert("Signup Successfully");
+      successNotify("Signup Successfully");
       handleOnChangeToken(response.token);
       navigate("/");
     } else {
-      alert("Signup failed ...");
+      successNotify("Signup failed ...");
     }
   };
 

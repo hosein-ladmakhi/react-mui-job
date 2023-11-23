@@ -5,6 +5,7 @@ import { TResumeSectionProps } from "@/types/models/resume";
 import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
 import { EResumeItemType } from "@/types/apis/resume";
 import { Button } from "@/common/kit";
+import { successNotify } from "@/lib";
 
 const CreateProfileForm: FC<TResumeSectionProps> = ({ formClass, data, id, mutate }) => {
   const { handleSubmit, control } = useResumeSectionItem(data, EResumeItemType.Profile);
@@ -12,7 +13,7 @@ const CreateProfileForm: FC<TResumeSectionProps> = ({ formClass, data, id, mutat
   const onSubmit = handleSubmit(async (data) => {
     const response = await mutate({ id, data });
     if (response?.id) {
-      alert("Save Successfully ...");
+      successNotify("Save Successfully ...");
     }
   });
 

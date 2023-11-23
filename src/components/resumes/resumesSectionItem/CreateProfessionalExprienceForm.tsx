@@ -4,6 +4,7 @@ import { TextBox, DatepickerInput, Button } from "../../../common/kit";
 import { TResumeSectionProps } from "@/types/models/resume";
 import { useResumeSectionItem } from "../hooks/useResumeSectionItem";
 import { EResumeItemType } from "@/types/apis/resume";
+import { successNotify } from "@/lib";
 
 const CreateProfessionalExpreinceForm: FC<TResumeSectionProps> = ({ formClass, data, id, mutate }) => {
   const { handleSubmit, control } = useResumeSectionItem(data, EResumeItemType.ProfessionalExprience);
@@ -11,7 +12,7 @@ const CreateProfessionalExpreinceForm: FC<TResumeSectionProps> = ({ formClass, d
   const onSubmit = handleSubmit(async (data) => {
     const response = await mutate({ id, data });
     if (response?.id) {
-      alert("Save Successfully ...");
+      successNotify("Save Successfully ...");
     }
   });
 

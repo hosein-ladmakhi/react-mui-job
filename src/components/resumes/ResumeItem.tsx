@@ -7,6 +7,7 @@ import { RESUME_SECTION_MAPPER } from "@/constant/resumeSection";
 import { makeStyles } from "tss-react/mui";
 import { useAddDataResumeItem, useDeleteResumeItem } from "@/hooks";
 import { APP_THEME_COLOR } from "@/constant";
+import { errorNotify, successNotify } from "@/lib";
 
 interface IResumeItemProps {
   item: TResumeItem;
@@ -24,9 +25,9 @@ const ResumeItem: FC<IResumeItemProps> = ({ item, isActiveSection, handleOnChang
   const handleDeleteItem = async (id: number) => {
     const response = await deleteResumeItemMutate(id);
     if (response) {
-      alert("delete successfully ...");
+      successNotify("delete successfully ...");
     } else {
-      alert("delete section failed ...");
+      errorNotify("delete section failed ...");
     }
   };
 

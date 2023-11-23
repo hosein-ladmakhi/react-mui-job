@@ -8,3 +8,76 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+
+
+/* SUCCESS TOAST */
+
+.toast_success {
+    color: #fff;
+    background: #445D48 !important;
+}
+
+.toast_success .Toastify__progress-bar--success {
+    background: #7EAA92;
+}
+
+.toast_success .Toastify__toast-icon svg {
+    fill: #7EAA92;
+}
+
+.toast_success .Toastify__close-button {
+    color: #fff;
+}
+
+.toast_success .Toastify__toast-body {
+    color: #fff;
+}
+
+
+/* ERROR TOAST */
+
+.toast_error {
+    color: #fff;
+    background: #ED2B2A !important;
+}
+
+.toast_error .Toastify__progress-bar--error {
+    background: #D21312;
+}
+
+.toast_error .Toastify__toast-icon svg {
+    fill: #fff;
+}
+
+.toast_error .Toastify__close-button {
+    color: #fff;
+}
+
+.toast_error .Toastify__toast-body {
+    color: #fff;
+}
+
+
+/* DEFAULT TOAST */
+
+.toast_default {
+    color: #fff;
+    background: #04293A !important;
+}
+
+.toast_default .Toastify__progress-bar--default {
+    background: #082032;
+}
+
+.toast_default .Toastify__toast-icon svg {
+    fill: #082032;
+}
+
+.toast_default .Toastify__close-button {
+    color: #fff;
+}
+
+.toast_default .Toastify__toast-body {
+    color: #fff;
+}

@@ -1,21 +1,21 @@
-import { FC, useEffect, useState } from "react";
-import { FileUploader, TextBox } from "../../common/kit";
+import { FC, useEffect, useRef } from "react";
+import { TextBox } from "@/common/kit";
 import { Button, Grid } from "@mui/material";
-import { useUserContext, useViewport } from "../../hooks";
+import { useUserContext } from "@/hooks";
 import zod from "zod";
-import { profileFormValidation } from "../../constant/forms";
-import SeoLayout from "../../layout/SeoLayout";
-import { profilePageSeoMeta } from "../../seo-meta";
-import { uploadImage } from "../../services/uploader";
-import { TUser } from "../../types/models";
-import { updateUser } from "../../services/auth";
+import { profileFormValidation } from "@/constant/forms";
+import SeoLayout from "@/layout/SeoLayout";
+import { profilePageSeoMeta } from "@/seo-meta";
+import { uploadImage } from "@/services/uploader";
+import { TUser } from "@/types/models";
+import { updateUser } from "@/services/auth";
 import { useForm } from "@/hooks";
+import ProfileFileUploader from "@/components/profile/ProfileFileUploader";
+import { successNotify } from "@/lib";
 
 const ProfilePage: FC = () => {
-  const [avatar, setAvatar] = useState<File>();
-  const { isDesktop } = useViewport();
+  const avatarRef = useRef<File>();
   const { user, handleChangeUser } = useUserContext();
-  const onChangeAvatar = (file?: File) => setAvatar(file);
   const { handleSubmit, control, setValue } = useForm<zod.infer<typeof profileFormValidation>>(profileFormValidation);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ProfilePage: FC = () => {
 
   const handleUploadingImage = () => {
     const uploadImageFormdata = new FormData();
-    uploadImageFormdata.append("image", avatar as File);
+    uploadImageFormdata.append("image", avatarRef?.current as File);
     uploadImageFormdata.append("height", "100");
     uploadImageFormdata.append("width", "100");
     return uploadImage(uploadImageFormdata);
@@ -37,14 +37,14 @@ const ProfilePage: FC = () => {
 
   const onSubmit = async (value: TUser) => {
     const updatedUserData = { ...value };
-    updatedUserData.logo = avatar ? await handleUploadingImage() : user?.logo;
+    updatedUserData.logo = avatarRef?.current ? await handleUploadingImage() : user?.logo;
     console.log("updated user", updatedUserData);
     const updatedResult = await updateUser(updatedUserData);
     if (updatedResult) {
       handleChangeUser(updatedUserData);
-      alert("Update User Successfully ...");
+      successNotify("Update User Successfully ...");
     } else {
-      alert("Updating User Info failed ...");
+      successNotify("Updating User Info failed ...");
     }
   };
 
@@ -53,13 +53,7 @@ const ProfilePage: FC = () => {
       <form onSubmit={handleSubmit(onSubmit as any)}>
         <Grid container spacing={2}>
           <Grid item xs={12} lg={12}>
-            {isDesktop ? (
-              <FileUploader avatarHeight="120px" avatarWidth="120px" file={avatar} onChangeFile={onChangeAvatar} />
-            ) : (
-              <center>
-                <FileUploader avatarHeight="120px" avatarWidth="120px" file={avatar} onChangeFile={onChangeAvatar} />
-              </center>
-            )}
+            <ProfileFileUploader imageRef={avatarRef} />
           </Grid>
           <Grid item xs={12} lg={6}>
             <TextBox control={control} name="username" label="Username" type="text" />
