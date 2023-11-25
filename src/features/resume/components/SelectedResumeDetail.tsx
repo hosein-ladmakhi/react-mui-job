@@ -8,7 +8,7 @@ import { useResumeById } from "../hooks/useResume";
 const SelectedResumeDetail: FC = () => {
   const { resumeId, onChangeActiveSection, activeSection } = useResumeContext();
 
-  const { data: resume } = useResumeById(+resumeId!);
+  const { data: resume } = useResumeById(resumeId!);
 
   if (!resume) return <></>;
 
