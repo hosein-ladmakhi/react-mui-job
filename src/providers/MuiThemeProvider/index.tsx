@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline, createTheme } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
-import { APP_THEME_COLOR } from "../../constant";
+import { APP_THEME_COLOR } from "@/constant";
 
 interface IMuiThemeProviderProps extends PropsWithChildren {}
 

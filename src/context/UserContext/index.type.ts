@@ -1,4 +1,4 @@
-import { TUser } from "@/types/models";
+import { TUser } from "@/types/general";
 
 export type TUserContext = {
   // token

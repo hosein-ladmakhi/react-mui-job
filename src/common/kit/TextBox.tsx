@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { FormHelperText, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
-import { TControllerForm } from "../../types/general";
+import { TControllerForm } from "@/types/general";
 import { makeStyles } from "tss-react/mui";
 
 interface ITextBoxProps {

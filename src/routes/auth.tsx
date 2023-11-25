@@ -1,8 +1,8 @@
 import { lazy } from "react";
 import { appRouterPath } from "../constant";
 
-const LoginPage = lazy(() => import("../pages/auth/login"));
-const SignupPage = lazy(() => import("../pages/auth/signup"));
+const LoginPage = lazy(() => import("@/features/auth/login/page"));
+const SignupPage = lazy(() => import("@/features/auth/signup/page"));
 
 export const authRoutes = [
   {

@@ -1,10 +1,10 @@
 import { FC, PropsWithChildren, createContext, useEffect, useState } from "react";
-import { TJwtToken, TUser } from "../../types/models";
-import { getUser } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
-import { appConfig, appRouterPath } from "../../constant";
+import { appConfig, appRouterPath } from "@/constant";
 import { useQueryClient } from "@tanstack/react-query";
 import { TUserContext } from "./index.type";
+import { TJwtToken, TUser } from "@/types/general";
+import { getUser } from "@/features/profile/services";
 
 export const userContext = createContext<TUserContext>({
   token: "",

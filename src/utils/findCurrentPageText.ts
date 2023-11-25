@@ -1,4 +1,3 @@
-import { appNavbar } from "../constant";
+import { appNavbar } from "@/constant";
 
-export const findCurrentPageText = (path: string) =>
-   appNavbar.find((e) => e.path?.startsWith(path))?.text;
+export const findCurrentPageText = (path: string) => appNavbar.find((e) => e.path?.startsWith(path))?.text;

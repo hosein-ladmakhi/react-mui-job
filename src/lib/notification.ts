@@ -1,4 +1,3 @@
-import { icons } from "@/constant/icons";
 import { toast } from "react-toastify";
 
 export const errorNotify = (message: string) => {

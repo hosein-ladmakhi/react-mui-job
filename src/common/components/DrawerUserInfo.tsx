@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { FC } from "react";
 import { Avatar } from "../kit";
-import { useUserContext } from "@/hooks";
+import { useUserContext } from "@/context";
 
 const DrawerUserInfo: FC = () => {
   const { user } = useUserContext();

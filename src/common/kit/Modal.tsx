@@ -1,10 +1,10 @@
 import { IconButton, Modal as MuiModal } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
-import { useAppContext } from "@/hooks";
 import { icons } from "@/constant/icons";
 import { APP_THEME_COLOR } from "@/constant";
 import { preventParentEvent } from "@/utils";
 import { makeStyles } from "tss-react/mui";
+import { useAppContext } from "@/context";
 
 interface IModalProps extends PropsWithChildren {
   subject?: string;

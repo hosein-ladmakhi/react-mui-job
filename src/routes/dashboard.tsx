@@ -2,12 +2,12 @@ import { lazy } from "react";
 import { appRouterPath } from "../constant";
 
 // pages
-const CompaniesPage = lazy(() => import("../pages/companies"));
-const JobsPage = lazy(() => import("../pages/jobs"));
-const ProfilePage = lazy(() => import("../pages/profile"));
-const ResumePage = lazy(() => import("../pages/resume"));
-const NotFoundPage = lazy(() => import("../pages/notfound"));
-const LogoutPage = lazy(() => import("../pages/logout"));
+const CompaniesPage = lazy(() => import("@/features/companies/page"));
+const JobsPage = lazy(() => import("@/features/jobs/page"));
+const ProfilePage = lazy(() => import("@/features/profile/page"));
+const ResumePage = lazy(() => import("@/features/resume/page"));
+const NotFoundPage = lazy(() => import("@/features/notfound/page"));
+const LogoutPage = lazy(() => import("@/features/logout/page"));
 
 export const dashboardRoutes = [
   {

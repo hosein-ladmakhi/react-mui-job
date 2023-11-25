@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, createContext, useState } from "react";
-import { TAppContext } from "../../types/models";
 import { TObject } from "../../types/general";
+import { TAppContext } from "./index.type";
 
 export const appContext = createContext<TAppContext>({
   isOpenDrawer: false,

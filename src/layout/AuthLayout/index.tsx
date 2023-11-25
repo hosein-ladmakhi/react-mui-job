@@ -1,7 +1,7 @@
 import { FC, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { makeStyles } from "tss-react/mui";
-import { Loading } from "../../common/kit";
+import { Loading } from "@/common/kit";
 
 const AuthLayout: FC = () => {
   const { classes } = useStyles();

@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import { AppContextProvider, UserContextProvider } from "../../context";
+import { AppContextProvider, UserContextProvider } from "@/context";
 
 export const ContextProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
